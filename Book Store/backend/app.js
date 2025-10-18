@@ -1,8 +1,12 @@
 import express from "express";
 import { bookRouter } from "./routes/bookRoute.js";
+import cors from "cors";
 
 const app = express();
 app.use(express.json());
+
+// Enabling CORS
+app.use(cors());
 
 app.use("/api/v1/books", bookRouter);
 
