@@ -1,14 +1,9 @@
 import express from "express";
+import { studentRouter } from "./Routes/routes.js";
 
 const app = express();
 
-app.use(express.json())
+app.use(express.json());
 
-const htmlCode = "<h1>This is from server!</h1><h3>This is line</h3>"
-
-app.get("/", (req, res) => {
-    // res.status(200).send("Hello, from server!")
-    res.status(200).send(htmlCode)
-})
-
+app.use("/api/v1/students", studentRouter);
 export { app };
