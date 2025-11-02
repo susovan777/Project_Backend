@@ -54,6 +54,14 @@ const createStudent = async (req, res) => {
 
 const updateStudent = async (req, res) => {
   try {
+    const data = await Student.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+
+    res.status(200).json({
+      status: "Success",
+      data: data,
+    });
   } catch (err) {
     console.log(err);
     res.status(400).json({
@@ -65,6 +73,12 @@ const updateStudent = async (req, res) => {
 
 const deleteStudent = async (req, res) => {
   try {
+    const data = await Student.findByIdAndDelete(req.params.id);
+
+    res.status(200).json({
+      status: "Success",
+      data: data,
+    });
   } catch (err) {
     console.log(err);
     res.status(400).json({
