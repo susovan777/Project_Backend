@@ -83,7 +83,7 @@ const RecordList = () => {
                           className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 cursor-pointer disabled:pointer-events-none disabled:opacity-50 border border-slate-400 border-input bg-background hover:bg-red-100 hover:text-accent-foreground h-9 rounded-md px-3"
                           color="red"
                           type="button"
-                          onClick={() => handleDelete()}>
+                          onClick={() => handleDelete(item._id)}>
                           Delete
                         </button>
                       </div>

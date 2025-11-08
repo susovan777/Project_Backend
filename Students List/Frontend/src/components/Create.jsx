@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Navbar from "./Navbar";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Create = () => {
   const [form, setForm] = useState({
@@ -68,7 +68,7 @@ const Create = () => {
       body: JSON.stringify(record),
     })
       .then((response) => {
-        response.json()
+        response.json();
       })
       .catch((err) => console.error("Error:", err));
 
@@ -209,11 +209,18 @@ const Create = () => {
             </div>
           </div>
 
-          <input
-            type="submit"
-            value="Save Employee Record"
-            className="inline-flex items-center justify-center whitespace-nowrap text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background border-slate-900/10 hover:bg-green-400 hover:text-accent-foreground h-9 rounded-md px-3 cursor-pointer mt-4"
-          />
+          <div className="flex justify-between">
+            <input
+              type="submit"
+              value="Save Employee Record"
+              className="inline-flex items-center justify-center whitespace-nowrap text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background border-slate-900/10 hover:bg-green-400 hover:text-accent-foreground h-9 rounded-md px-3 cursor-pointer mt-4"
+            />
+            <Link
+              to="/"
+              className="inline-flex items-center justify-center whitespace-nowrap text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background border-slate-900/10 hover:bg-gray-600 hover:text-white hover:text-accent-foreground h-9 rounded-md px-3 cursor-pointer mt-4">
+              Back
+            </Link>
+          </div>
         </form>
       </div>
     </div>
