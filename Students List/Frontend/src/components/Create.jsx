@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Navbar from "./Navbar";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Create = () => {
   const [form, setForm] = useState({
@@ -11,7 +11,6 @@ const Create = () => {
     major: "Arts",
     year: "",
   });
-  const params = useParams();
   const navigate = useNavigate();
   const url = "http://localhost:3000/api/v1/students";
 
@@ -50,7 +49,7 @@ const Create = () => {
     }));
   };
 
-  const submitForm = (e) => {
+  const submitForm = async (e) => {
     e.preventDefault();
 
     const record = {
@@ -63,7 +62,7 @@ const Create = () => {
       enrollmentYear: form.year,
     };
 
-    fetch(url, {
+    await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(record),
@@ -73,7 +72,7 @@ const Create = () => {
       })
       .catch((err) => console.error("Error:", err));
 
-    // after save navigate to the hope page
+    // after save navigate to the home page
     navigate("/");
     console.log(record);
   };
