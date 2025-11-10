@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 const Record = () => {};
@@ -28,6 +29,9 @@ const RecordList = () => {
       method: "DELETE",
     });
 
+    toast("User deleted successfully", {
+      icon: "⚠️",
+    });
     const newRecords = records.filter((el) => el._id != id);
     setRecords(newRecords);
   };

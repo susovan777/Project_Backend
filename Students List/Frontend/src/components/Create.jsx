@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Navbar from "./Navbar";
 import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Create = () => {
   const [form, setForm] = useState({
@@ -68,6 +69,7 @@ const Create = () => {
       body: JSON.stringify(record),
     })
       .then((response) => {
+        toast.success("User created successfully");
         response.json();
       })
       .catch((err) => console.error("Error:", err));

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Navbar from "./Navbar";
+import toast from "react-hot-toast";
 
 const Update = () => {
   const [form, setForm] = useState({
@@ -65,6 +66,7 @@ const Update = () => {
       body: JSON.stringify(record),
     })
       .then((response) => {
+        toast.success("User updated successfully 👍")
         response.json();
       })
       .catch((err) => console.error("Error:", err));
