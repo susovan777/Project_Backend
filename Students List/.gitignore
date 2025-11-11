@@ -3,6 +3,11 @@ node_modules/
 
 ### dotenv ###
 .env
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # Optional npm cache directory
 .npm
@@ -19,3 +24,9 @@ logs
 *.log
 npm-debug.log*
 .pnpm-debug.log*
+
+# testing
+coverage
+
+# production
+build
