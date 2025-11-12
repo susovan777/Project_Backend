@@ -1,3 +1,4 @@
+import config from "../config";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
@@ -5,7 +6,8 @@ import { Link } from "react-router-dom";
 const Record = () => {};
 
 const RecordList = () => {
-  const url = "http://localhost:3000/api/v1/students";
+  // const url = `http://localhost:3000/api/v1/students`;
+  const url = `${config.backend_URL}/api/v1/students`;
   const [records, setRecords] = useState([]);
 
   useEffect(() => {

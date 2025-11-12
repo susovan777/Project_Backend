@@ -1,3 +1,4 @@
+import config from "../config";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Navbar from "./Navbar";
@@ -13,7 +14,9 @@ const Update = () => {
     year: "",
   });
 
-  const url = "http://localhost:3000/api/v1/students";
+  // const url = "http://localhost:3000/api/v1/students";
+  const url = `${config.backend_URL}/api/v1/students`;
+
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -66,7 +69,7 @@ const Update = () => {
       body: JSON.stringify(record),
     })
       .then((response) => {
-        toast.success("User updated successfully 👍")
+        toast.success("User updated successfully 👍");
         response.json();
       })
       .catch((err) => console.error("Error:", err));

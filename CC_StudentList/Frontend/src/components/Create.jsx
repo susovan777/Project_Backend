@@ -1,3 +1,4 @@
+import config from "../config";
 import { useState } from "react";
 import Navbar from "./Navbar";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,7 +14,8 @@ const Create = () => {
     year: "",
   });
   const navigate = useNavigate();
-  const url = "http://localhost:3000/api/v1/students";
+  // const url = "http://localhost:3000/api/v1/students";
+  const url = `${config.backend_URL}/api/v1/students`;
 
   function generateRandomID() {
     // --- 1. Alphabet Part (3 Chars) ---
