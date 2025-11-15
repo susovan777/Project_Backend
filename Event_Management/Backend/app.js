@@ -5,6 +5,8 @@ import { profileRouter } from './routes/profileRoutes.js';
 import { evenetRouter } from './routes/eventRoutes.js';
 
 const app = express();
+
+// Middlewares
 app.use(express.json());
 app.use(cors());
 
@@ -15,6 +17,7 @@ app.get('/', (req, res) => {
   res.send('Welcome to the Event Management System!');
 });
 
+// Routes
 app.use('/api/profiles', profileRouter);
 app.use('/api/events', evenetRouter);
 

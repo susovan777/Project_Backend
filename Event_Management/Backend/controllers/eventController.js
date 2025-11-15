@@ -20,10 +20,18 @@ const createEvent = async (req, res) => {
       });
     }
 
-    // End date/time cannot be in the past relative to the selected start date/time.
     const startDate = new Date(startDateTime);
     const endDate = new Date(endDateTime);
 
+    // Start date cannot be in the past
+    if (startDate < Date.now() || endDate < Date.now()) {
+      return res.status(400).json({
+        status: 'fail',
+        message: 'Date cannot be in past',
+      });
+    }
+
+    // End date/time cannot be in the past relative to the selected start date/time.
     if (startDate >= endDate) {
       return res.status(400).json({
         status: 'fail',
@@ -38,6 +46,7 @@ const createEvent = async (req, res) => {
       startDateTime: startDate,
       endDateTime: endDate,
     });
+
     res.status(201).json(event);
   } catch (error) {
     res.status(500).json({
@@ -66,4 +75,53 @@ const getEvents = async (req, res) => {
   }
 };
 
-export { createEvent, getEvents };
+// Update event
+const updateEvent = async (req, res) => {
+  try {
+    const { startDateTime, endDateTime } = req.body;
+    const eventId = req.params.id;
+
+    if (startDateTime || endDateTime) {
+      const existingEvent = await Event.findById(eventId).select(
+        'startDateTime endDateTime'
+      );
+
+      const newStartDate = new Date(
+        startDateTime || existingEvent.startDateTime
+      );
+      const newEndDate = new Date(endDateTime || existingEvent.endDateTime);
+
+      // Updated start date cannot be in the past
+    if (newStartDate < Date.now() || newEndDate < Date.now()) {
+      return res.status(400).json({
+        status: 'fail',
+        message: 'Updated date and time cannot be in the past',
+      });
+    }
+
+      if (newEndDate <= newStartDate) {
+        return res.status(400).json({
+          message:
+            'The end date and time must be after the start date and time.',
+        });
+      }
+    }
+
+    const updatedEvent = await Event.findByIdAndUpdate(eventId, req.body, {
+      new: true,
+      runValidators: true,
+    }).populate({
+      path: 'profiles',
+      select: 'name',
+    });
+
+    res.status(200).json(updatedEvent);
+  } catch (error) {
+    res.status(500).json({
+      status: 'fail',
+      message: error.message,
+    });
+  }
+};
+
+export { createEvent, getEvents, updateEvent };
