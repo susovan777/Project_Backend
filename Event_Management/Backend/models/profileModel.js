@@ -8,11 +8,6 @@ const profileSchema = mongoose.Schema(
       trim: true,
       unique: true,
     },
-    timezone: {
-      type: String,
-      required: [true, 'Please select a default timezone for the user'],
-      default: 'IST',
-    },
   },
   {
     timeStamps: true,

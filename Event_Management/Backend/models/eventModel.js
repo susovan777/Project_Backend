@@ -10,12 +10,12 @@ const eventSchema = mongoose.Schema(
     profiles: [
       {
         // This creates a relationship (reference) to the Profile model.
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Profile',
         required: [true, 'Events must be assigned to at least one profile.'],
       },
     ],
-    eventTimzone: {
+    eventTimezone: {
       type: String,
       required: [true, 'Please pick a timezone for the event'],
     },
