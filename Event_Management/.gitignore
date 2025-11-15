@@ -30,3 +30,6 @@ coverage
 
 # production
 build
+
+# other
+.prettierrc
