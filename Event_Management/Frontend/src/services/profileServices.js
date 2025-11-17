@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { Endpoint } from '../config/endpoint';
 
-const API_URL = '/api/profiles/';
+const API_URL = `${Endpoint.BACKEND}/api/profiles`;
 
 const getAllProfiles = async () => {
   const response = await axios.get(API_URL);

@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { Endpoint } from '../config/endpoint';
 
-const API_URL = '/api/events/';
+const API_URL = `${Endpoint.BACKEND}/api/events`;
 
 const createEvent = async (eventData) => {
   const response = await axios.post(API_URL, eventData);
