@@ -1,6 +1,8 @@
 import express from 'express';
+import connectDB from './Config/db.js';
 
 const app = express();
+connectDB();
 
 // Middleware
 app.use(express.json());
@@ -10,4 +12,4 @@ app.use('/', (req, res) => {
   res.send('<h1>Welcome to the Task Manager App</h1>');
 });
 
-export { app };
+export default app;
