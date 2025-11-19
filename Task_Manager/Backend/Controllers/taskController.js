@@ -53,7 +53,7 @@ const getAllTasks = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({
-      messege: 'Server error: Could not create task',
+      messege: 'Server error: Could not retrieve tasks',
     });
   }
 };
@@ -68,9 +68,17 @@ const getTask = async (req, res) => {
       task,
     });
   } catch (error) {
+    // handle invalid MongoDB Id
+    if (error.name === 'CastError') {
+      return res.status(400).json({
+        status: 'Fail',
+        message: 'Invalid Task ID format',
+      });
+    }
+
     console.error(error);
     res.status(500).json({
-      messege: 'Server error: Could not create task',
+      messege: 'Server error: Could not retrieve task',
     });
   }
 };
@@ -86,10 +94,26 @@ const updateTask = async (req, res) => {
     res.status(200).json({
       status: 'Success',
       messege: 'Task updated successfully',
-      updateTask,
+      updatedTask,
     });
   } catch (error) {
     console.error(error);
+    
+    // handle Invlid Mongo ID
+    if (error.name === 'CastError') {
+      return res.status(400).json({
+        status: 'Fail',
+        message: 'Invalid Task ID format',
+      });
+    }
+
+    // handle validation error
+    if (error.name === 'ValidationError') {
+      res.status(400).json({ message: error.message });
+    }
+
+
+    
     res.status(500).json({
       messege: 'Server error: Could not update task',
     });
@@ -106,6 +130,13 @@ const deleteTask = async (req, res) => {
       messege: 'Task deleted successfully',
     });
   } catch (error) {
+    if (error.name === 'CastError') {
+      return res.status(400).json({
+        status: 'Fail',
+        message: 'Invalid Task ID format',
+      });
+    }
+
     console.error(error);
     res.status(500).json({
       messege: 'Server error: Could not delete task',
