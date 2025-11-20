@@ -1,30 +1,23 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import TaskList from './TaskList';
+import TaskItem from './TaskItem';
 
-const DisplayTask = () => {
-  const [tasks, setTasks] = useState([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const getTasks = async () => {
-      try {
-        const response = await axios.get('/api/tasks');
-        // console.log(response.data);
-        setTasks(response.data.tasks);
-      } catch (error) {
-        console.error('Error:', error);
-        setError('Failed to fetch task from backend');
-      }
-    };
-
-    getTasks();
-  }, []);
-
-  console.log(tasks);
+const DisplayTask = ({ tasks, onEdit, onDelete, onStatusChange }) => {
   return (
-    <div className="display-tasks">
-      {tasks.length === 0 ? <p>No events found</p> : <TaskList tasks={tasks} />}
+    <div className="task-list-container">
+      {tasks.length === 0 ? (
+        <p style={{ textAlign: 'center', color: '#666' }}>No task found</p>
+      ) : (
+        <ul style={{ listStyleType: 'none', padding: 0 }}>
+          {tasks.map((task) => (
+            <TaskItem
+              key={task._id}
+              task={task}
+              onEdit={onEdit}
+              onDelete={onDelete}
+              onStatusChange={onStatusChange}
+            />
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

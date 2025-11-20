@@ -1,6 +1,8 @@
+import axios from 'axios';
 import { useState } from 'react';
 
-const TaskForm = () => {
+const TaskForm = ({ onTaskCreated }) => {
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -8,8 +10,6 @@ const TaskForm = () => {
   });
 
   const handleChange = (e) => {
-    e.preventDefault();
-
     const { name, value } = e.target;
 
     setFormData((prev) => ({
@@ -18,8 +18,31 @@ const TaskForm = () => {
     }));
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const response = await axios.post('/api/tasks', formData);
+
+      //   Notify the parent comp (TaskList) to refresh
+      onTaskCreated(response.data.data);
+      console.log(response.data);
+
+      setFormData({
+        title: '',
+        description: '',
+        status: 'To-do',
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div className="form-container">
+    <form onSubmit={handleSubmit} className="form-container">
       <label className="form-label">Title</label>
       <input
         type="text"
@@ -33,7 +56,7 @@ const TaskForm = () => {
       <label className="form-label">Description</label>
       <input
         type="text"
-        name="title"
+        name="description"
         value={formData.description}
         onChange={handleChange}
         className="form-input"
@@ -57,9 +80,9 @@ const TaskForm = () => {
         className="form-button"
         style={{ backgroundColor: '#6c63ff', marginTop: '20px' }}
       >
-        + Create Task
+        {loading ? 'Adding...' : '+ Add Task'}
       </button>
-    </div>
+    </form>
   );
 };
 
