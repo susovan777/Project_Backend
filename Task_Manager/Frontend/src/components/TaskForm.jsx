@@ -1,5 +1,8 @@
 import axios from 'axios';
 import { useState } from 'react';
+import config from '../config/endpoint';
+
+const URL = `${config.endpoint}/api/tasks`;
 
 const TaskForm = ({ onTaskCreated }) => {
   const [loading, setLoading] = useState(false);
@@ -23,11 +26,11 @@ const TaskForm = ({ onTaskCreated }) => {
     setLoading(true);
 
     try {
-      const response = await axios.post('/api/tasks', formData);
+      const response = await axios.post(URL, formData);
 
       //   Notify the parent comp (TaskList) to refresh
       onTaskCreated(response.data.data);
-      console.log(response.data);
+      console.log(response.data.data);
 
       setFormData({
         title: '',

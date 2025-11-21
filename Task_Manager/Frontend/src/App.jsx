@@ -3,7 +3,9 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import DisplayTask from './components/DisplayTask';
 import TaskForm from './components/TaskForm';
+import config from './config/endpoint';
 
+const URL = `${config.endpoint}/api/tasks`;
 const App = () => {
   const [tasks, setTasks] = useState([]);
   const [error, setError] = useState(null);
@@ -11,7 +13,7 @@ const App = () => {
   useEffect(() => {
     const getTasks = async () => {
       try {
-        const response = await axios.get('/api/tasks');
+        const response = await axios.get(URL);
         // console.log(response.data);
         setTasks(response.data.tasks);
       } catch (error) {
@@ -24,21 +26,17 @@ const App = () => {
   }, []);
 
   const handleAddedTask = (newTask) => {
-    setTasks((prev) => ({
-      newTask,
-      ...prev,
-    }));
+    setTasks((prev) => [newTask, ...prev]);
   };
 
   const handleEdit = (id) => {
     console.log(`Editing task ${id}`);
-    
   };
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/api/tasks/:${id}`);
-      setTasks((task) => task._id !== id);
+      await axios.delete(`${URL}/${id}`);
+      setTasks((prevTasks) => prevTasks.filter((task) => task._id !== id));
       console.log(`Task with ID ${id} deleted successfully.`);
     } catch (error) {
       console.error('Error deleting task:', err);
