@@ -8,6 +8,11 @@ const profileSchema = mongoose.Schema(
       trim: true,
       unique: true,
     },
+    timezone: {
+      type: String,
+      default: 'America/New_York', // Default timezone
+      required: true,
+    },
   },
   {
     timeStamps: true,

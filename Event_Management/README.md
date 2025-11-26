@@ -6,6 +6,21 @@ This is a full-stack Event Management System built with the **MERN** stack (Mong
 
 The system enforces strict scheduling rules and handles complex date/time conversions on the fly, making it an ideal solution for globally distributed teams or applications.
 
+---
+
+### 🌐 Live Demo
+
+
+* **Live Frontend Application:** [Live Event Management System Link](https://ems-frontend-gamma-seven.vercel.app/)
+**Deployed Backend API:** 
+    * **GET All Events:** `/api/events`
+    * **GET All Profiles:** `/api/profiles`
+    * **POST Create Event:** `/api/events`
+    * **GET Single Event:** `/api/events/:id`
+    * **PUT/PATCH Update Event:** `/api/events/:id`
+    * **DELETE Event:** `/api/events/:id`
+
+---
 ## ✨ Key Features
 
 The application includes the following features:
@@ -61,8 +76,8 @@ The project utilizes a modular MERN architecture:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/susovan777/Project_Backend/tree/main/Event_Management
-cd event-management-system
+git clone https://github.com/susovan777/Project_Backend.git
+cd Event_Management
 ```
 ### 2. Backend Setup (`./backend`)
 * #### 1. Navigate to the backend directory:
