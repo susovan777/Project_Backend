@@ -21,4 +21,4 @@ const profileSchema = mongoose.Schema(
 
 const Profile = mongoose.model('Profile', profileSchema);
 
-export { Profile };
+export default Profile;

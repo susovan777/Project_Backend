@@ -55,4 +55,4 @@ eventSchema.pre('save', function(next) {
 
 const Event = mongoose.model('Event', eventSchema);
 
-export { Event };
+export default Event ;

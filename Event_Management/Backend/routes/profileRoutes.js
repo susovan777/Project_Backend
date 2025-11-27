@@ -5,4 +5,4 @@ const profileRouter = express.Router();
 
 profileRouter.route('/').get(getProfiles).post(createProfile);
 
-export { profileRouter };
+export default profileRouter;
