@@ -1,4 +1,4 @@
-export const Endpoint = {
-  BACKEND : 'https://ems-backend-bice.vercel.app',
-  LOCAL: 'http://localhost:3000',
+export const config = {
+  // endpoint: 'https://ems-backend-bice.vercel.app',
+  endpoint: 'http://localhost:3000',
 };
