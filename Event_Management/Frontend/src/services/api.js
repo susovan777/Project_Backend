@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { config } from '../config/endpoint.js';
 
-const API_URL = config.endpoint;
+const API_URL = `${config.endpoint}/api`;
 
 // Create axios instance with default config
 const api = axios.create({

@@ -1,18 +1,4 @@
-// import { config } from '../config/endpoint';
-
 import api from './api';
-
-// const API_URL = `${config.endpoint}/api/events`;
-
-// const createEvent = async (eventData) => {
-//   const response = await axios.post(API_URL, eventData);
-//   return response.data;
-// };
-
-// const getAllEvents = async () => {
-//   const response = await axios.get(API_URL);
-//   return response.data;
-// };
 
 /**
  * Event API Service
@@ -26,7 +12,7 @@ const eventAPI = {
    */
   getAll: async (timezone) => {
     const response = await api.get('/events', {
-      params: timezone,
+      params: { timezone },
     });
     return response.data;
   },
@@ -38,8 +24,8 @@ const eventAPI = {
    * @returns {Promise} Response with filtered events
    */
   getByProfile: async (profileId, timezone) => {
-    const response = await api.get(`/events/profiles/${profileId}`, {
-      params: timezone,
+    const response = await api.get(`/events/profile/${profileId}`, {
+      params: { timezone },
     });
     return response.data;
   },
@@ -50,7 +36,7 @@ const eventAPI = {
    * @returns {Promise} Response with created event
    */
   create: async (eventData) => {
-    const response = await api.post('/events');
+    const response = await api.post('/events', eventData);
     return response.data;
   },
 
@@ -71,10 +57,9 @@ const eventAPI = {
    * @returns {Promise} Response with success message
    */
   delete: async (id) => {
-    const response = api.delete(`/events/${id}`);
+    const response = await api.delete(`/events/${id}`);
     return response.data;
   },
 };
 
-// export default { getAllEvents, createEvent };
 export default eventAPI;

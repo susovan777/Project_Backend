@@ -1,18 +1,4 @@
-// import { config } from '../config/endpoint';
 import api from './api.js';
-
-// const API_URL = `${config.endpoint}/api/profiles`;
-
-/* const getAllProfiles = async () => {
-  const response = await axios.get(API_URL);
-  return response.data;
-};
-
-const createProfile = async (profileData) => {
-  const response = await axios.post(API_URL, profileData);
-  return response.data;
-}; */
-// ////////////////////////////////////////////////////////////////////
 
 /**
  * Profile API Service
@@ -52,4 +38,3 @@ const profileAPI = {
 };
 
 export default profileAPI;
-// export default { getAllProfiles, createProfile };
