@@ -10,7 +10,7 @@ import {
 const evenetRouter = express.Router();
 
 evenetRouter.route('/').post(createEvent).get(getAllEvents);
-evenetRouter.route('/profiles/:profileId').get(getEventsByProfile);
+evenetRouter.route('/profile/:profileId').get(getEventsByProfile);
 evenetRouter.route('/:id').put(updateEvent).delete(deleteEvent);
 
 export default evenetRouter;

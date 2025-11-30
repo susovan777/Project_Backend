@@ -21,7 +21,7 @@ const createProfile = async (req, res) => {
       timeZone: timeZone || 'America/New_York',
     });
 
-    res.status(201).json({ status: 'success', profile });
+    res.status(201).json({ status: 'success', data: profile });
   } catch (error) {
     res.status(500).json({
       status: 'fali',
@@ -36,10 +36,10 @@ const createProfile = async (req, res) => {
 const getProfiles = async (req, res) => {
   try {
     const profiles = await Profile.find().sort({ createdAt: -1 });
-    res.status(201).json({
+    res.status(200).json({
       status: 'success',
       count: profiles.length,
-      profiles,
+      data: profiles,
     });
   } catch (error) {
     if (error.name === 'ValidationError') {
@@ -76,7 +76,7 @@ const updateProfile = async (req, res) => {
     }
     res.status(200).json({
       status: 'success',
-      profile,
+      data: profile,
     });
   } catch (error) {
     console.error(error);

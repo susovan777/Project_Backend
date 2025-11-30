@@ -16,32 +16,10 @@ const createEvent = async (req, res) => {
       req.body;
 
     const startDateUTC = dayjs.tz(startDateTime, eventTimezone).utc().toDate();
-    const EndDateUTC = dayjs.tz(endDateTime, eventTimezone).utc().toDate();
-
-    // Basic validation
-    if (
-      !title ||
-      !profiles ||
-      !eventTimezone ||
-      !startDateTime ||
-      !endDateTime
-    ) {
-      return res.status(400).json({
-        status: 'fail',
-        message: 'All fields are required',
-      });
-    }
-
-    // Start date cannot be in the past
-    if (startDateUTC < Date.now() || EndDateUTC < Date.now()) {
-      return res.status(400).json({
-        status: 'fail',
-        message: 'Date cannot be in past',
-      });
-    }
+    const endDateUTC = dayjs.tz(endDateTime, eventTimezone).utc().toDate();
 
     // End date/time cannot be in the past relative to the selected start date/time.
-    if (startDateUTC >= EndDateUTC) {
+    if (endDateUTC <= startDateUTC) {
       return res.status(400).json({
         status: 'fail',
         message: 'End date/time must be after start date/time',
@@ -53,13 +31,13 @@ const createEvent = async (req, res) => {
       profiles,
       eventTimezone,
       startDateTime: startDateUTC,
-      endDateTime: EndDateUTC,
+      endDateTime: endDateUTC,
       updateHistory: [],
     });
 
     // await Event.populate('profiles');
 
-    res.status(201).json({ status: 'success', event });
+    res.status(201).json({ status: 'success', data: event });
   } catch (error) {
     res.status(500).json({
       status: 'fail',
@@ -110,7 +88,11 @@ const getEventsByProfile = async (req, res) => {
       });
     }
 
-    res.status(201).json({ status: 'success', events: eventsWithTimezone });
+    res.status(200).json({
+      status: 'success',
+      count: eventsWithTimezone.length,
+      data: eventsWithTimezone,
+    });
   } catch (error) {
     res.status(500).json({
       status: 'fail',
@@ -153,7 +135,7 @@ const getAllEvents = async (req, res) => {
     res.status(200).json({
       status: 'success',
       count: eventsWithTimezone.length,
-      events: eventsWithTimezone,
+      data: eventsWithTimezone,
     });
   } catch (error) {
     res.status(500).json({
@@ -271,7 +253,7 @@ const updateEvent = async (req, res) => {
 
     res.status(200).json({
       status: 'Success',
-      event,
+      data: event,
     });
   } catch (error) {
     res.status(500).json({
