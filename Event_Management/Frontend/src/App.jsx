@@ -1,73 +1,50 @@
-import './App.css';
-import { useEffect, useState } from 'react';
-import useAppStore from './store/useAppStore';
-import CreateEvent from './components/CreateEvent';
-import DisplayEvents from './components/DisplayEvents';
-import ProfilePicker from './components/ProfilePicker';
-import profileServices from './services/profileServices';
+import { useEffect } from 'react';
+import styles from './App.module.css';
+import useAppStore from './store/useAppStore.js';
+import EventForm from './components/EventForm.jsx';
+import EventList from './components/EventList.jsx';
+import ProfileSelector from './components/ProfileSelector.jsx';
 
-const App = () => {
-  const profiles = useAppStore((state) => state.profiles);
-  const addProfile = useAppStore((state) => state.addProfile);
-  const setProfiles = useAppStore((state) => state.setProfiles);
-  // Track the profile
-  const [currentProfileId, setCurrentProfileId] = useState(null);
+function App() {
+  const { getProfiles, profiles } = useAppStore();
 
+  // Fetch profiles when app loads
   useEffect(() => {
-    const getProfiles = async () => {
-      const data = await profileServices.getAllProfiles();
-      setProfiles(data.profiles);
-    };
-
     getProfiles();
-  }, [setProfiles]);
-
-  // console.log(profiles);
+  }, [getProfiles]);
 
   return (
-    <div className="app-container">
-      <ProfilePicker
-        profiles={profiles}
-        addProfile={addProfile}
-        currentProfileId={currentProfileId}
-        setCurrentProfileId={setCurrentProfileId}
-      />
-
-      <div className="main-header">
-        <h1>Event Management</h1>
-        <p>Create and manage events across multiple timezones</p>
-      </div>
-      <div className="main-grid">
-        <div className="left-panel">
-          <div className="modal-header">
-            <h2>Create Event</h2>
+    <div className={styles.app}>
+      {/* Header */}
+      <header className={styles.header}>
+        <div className={styles.headerContent}>
+          <div className={styles.titleSection}>
+            <h1 className={styles.title}>Event Management</h1>
+            <p className={styles.subtitle}>
+              Create and manage events across multiple timezones
+            </p>
           </div>
-          <CreateEvent />
+
+          <div className={styles.profileSelectorWrapper}>
+            <ProfileSelector />
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className={styles.main}>
+        {/* Left Column - Create Event */}
+        <div className={styles.leftColumn}>
+          <EventForm />
         </div>
 
-        <div className="right-panel">
-          <div className="modal-header">
-            <h2>Events</h2>
-          </div>
-          <label className="form-label">View in Timezone</label>
-          <select
-            name="eventTimezone"
-            // value={formData.eventTimezone}
-            // onChange={handleChange}
-            required
-            className="form-select-single"
-          >
-            {/* {timezones.map((tz) => (
-              <option key={tz} value={tz}>
-                {tz}
-              </option>
-            ))} */}
-          </select>
-          <DisplayEvents />
+        {/* Right Column - Events List */}
+        <div className={styles.rightColumn}>
+          <EventList />
         </div>
-      </div>
+      </main>
     </div>
   );
-};
+}
 
 export default App;
