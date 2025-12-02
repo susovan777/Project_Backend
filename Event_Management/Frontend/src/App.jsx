@@ -1,17 +1,28 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './App.module.css';
 import useAppStore from './store/useAppStore.js';
 import EventForm from './components/EventForm.jsx';
 import EventList from './components/EventList.jsx';
 import ProfileSelector from './components/ProfileSelector.jsx';
+import EditEventModal from './components/EditEvent.jsx';
 
 function App() {
-  const { getProfiles, profiles } = useAppStore();
+  const { getProfiles, getAllEvents, profiles } = useAppStore();
+
+  // Modal states
+  const [editingEvent, setEditingEvent] = useState(null);
+  const [viewingLogsEvent, setViewingLogsEvent] = useState(null);
 
   // Fetch profiles when app loads
   useEffect(() => {
     getProfiles();
-  }, [getProfiles]);
+    getAllEvents();
+  }, [getProfiles, getAllEvents]);
+
+  // Handler for editing event
+  const handleEditEvent = (event) => {
+    setEditingEvent(event);
+  };
 
   return (
     <div className={styles.app}>
@@ -40,9 +51,20 @@ function App() {
 
         {/* Right Column - Events List */}
         <div className={styles.rightColumn}>
-          <EventList />
+          <EventList
+            onEditEvent={handleEditEvent}
+            // onViewLogs={handleViewLogs}
+          />
         </div>
       </main>
+
+      {/* Edit Event Modal */}
+      {editingEvent && (
+        <EditEventModal
+          event={editingEvent}
+          onClose={() => setEditingEvent(null)}
+        />
+      )}
     </div>
   );
 }

@@ -11,12 +11,12 @@ The system enforces strict scheduling rules and handles complex date/time conver
 ### 🌐 Live Demo
 
 
-* **Live Frontend Application:** [Live Event Management System Link](https://ems-frontend-gamma-seven.vercel.app/)
-**Deployed Backend API:** 
+* **Live Frontend Application:** [Demo Link](https://ems-frontend-gamma-seven.vercel.app/)
+* **Deployed Backend API:** 
     * **GET All Events:** `/api/events`
+    * **GET Events by Profile:** `/api/events/profile/:profileId`
     * **GET All Profiles:** `/api/profiles`
     * **POST Create Event:** `/api/events`
-    * **GET Single Event:** `/api/events/:id`
     * **PUT/PATCH Update Event:** `/api/events/:id`
     * **DELETE Event:** `/api/events/:id`
 
