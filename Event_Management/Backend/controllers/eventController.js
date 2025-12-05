@@ -164,8 +164,8 @@ const updateEvent = async (req, res) => {
     // Convert new dates to UTC
     let startDateUTC, endDateUTC;
 
-    if (startDateTime && eventTimezone) {
-      startDateUTC = dayjs.tz(startDateTime, updateEvent).utc().toDate();
+    if (startDateTime || eventTimezone) {
+      startDateUTC = dayjs.tz(startDateTime, eventTimezone).utc().toDate();
 
       if (event.startDateTime.getTime() !== startDateUTC.getTime()) {
         updateLog.push({
@@ -203,11 +203,12 @@ const updateEvent = async (req, res) => {
       });
     }
 
-    // Updated start date cannot be in the past
-    if (finalStartDate < Date.now() || finalEndDate < Date.now()) {
+    // Check if dates are in the past (optional - remove if I want to allow past dates)
+    const now = new Date();
+    if (finalStartDate < now) {
       return res.status(400).json({
-        status: 'fail',
-        message: 'Updated date/time cannot be in the past',
+        success: false,
+        message: 'Start date/time cannot be in the past',
       });
     }
 
@@ -256,6 +257,8 @@ const updateEvent = async (req, res) => {
       data: event,
     });
   } catch (error) {
+    console.log(error);
+
     res.status(500).json({
       status: 'fail',
       message: error.message,

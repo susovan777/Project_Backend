@@ -121,12 +121,11 @@ const useAppStore = create((set, get) => ({
   },
 
   // Update event
-  updateEvent: async (id, eventData) => {
+  updateEvent: async (eventId, eventData) => {
     set({ loading: true, error: null });
     try {
-      const response = await eventAPI.update(id, {
+      const response = await eventAPI.update(eventId, {
         ...eventData,
-        userTimezone: get().currentTimezone,
       });
       set((state) => ({
         events: state.events.map((e) =>
@@ -138,7 +137,11 @@ const useAppStore = create((set, get) => ({
       // Refetch events to get proper timezone conversion
       const currentProfile = get().currentProfile;
       if (currentProfile) {
+        console.log('Refetching events for profile:', currentProfile._id);
         await get().getEventsByProfile(currentProfile._id);
+      } else {
+        console.log('Refetching all events');
+        await get().fetchAllEvents();
       }
 
       return response.data;
