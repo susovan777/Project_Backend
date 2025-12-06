@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import styles from './App.module.css';
 import useAppStore from './store/useAppStore.js';
-import EventForm from './components/EventForm.jsx';
-import EventList from './components/EventList.jsx';
-import ProfileSelector from './components/ProfileSelector.jsx';
-import EditEventModal from './components/EditEvent.jsx';
+import EventForm from './components/EventForm/EventForm.jsx';
+import EventList from './components/EventList/EventList.jsx';
+import ProfileSelector from './components/ProfilePicker/ProfileSelector.jsx';
+import EditEventModal from './components/EditEvent/EditEvent.jsx';
+import UpdateHistoryModal from './components/UpdateHistory/UpdateHistory.jsx';
 
 function App() {
-  const { getProfiles, getAllEvents, profiles } = useAppStore();
+  const { getProfiles, getAllEvents } = useAppStore();
 
   // Modal states
   const [editingEvent, setEditingEvent] = useState(null);
@@ -22,6 +23,11 @@ function App() {
   // Handler for editing event
   const handleEditEvent = (event) => {
     setEditingEvent(event);
+  };
+
+  // Handler for viewing logs
+  const handleViewLogs = (event) => {
+    setViewingLogsEvent(event);
   };
 
   return (
@@ -53,7 +59,7 @@ function App() {
         <div className={styles.rightColumn}>
           <EventList
             onEditEvent={handleEditEvent}
-            // onViewLogs={handleViewLogs}
+            onViewLogs={handleViewLogs}
           />
         </div>
       </main>
@@ -63,6 +69,14 @@ function App() {
         <EditEventModal
           event={editingEvent}
           onClose={() => setEditingEvent(null)}
+        />
+      )}
+
+      {/* Update History Modal */}
+      {viewingLogsEvent && (
+        <UpdateHistoryModal
+          event={viewingLogsEvent}
+          onClose={() => setViewingLogsEvent(null)}
         />
       )}
     </div>
