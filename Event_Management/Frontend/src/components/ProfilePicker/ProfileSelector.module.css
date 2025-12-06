@@ -1,0 +1,267 @@
+/* Container */
+.container {
+  position: relative;
+  width: 100%;
+}
+
+.label {
+  display: block;
+  font-size: 0.75rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+/* Dropdown */
+.dropdown {
+  position: relative;
+}
+
+.dropdownButton {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.dropdownButton:hover {
+  border-color: #9ca3af;
+}
+
+.dropdownButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.selectedText {
+  font-size: 0.875rem;
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+.arrow {
+  color: #6b7280;
+  transition: transform 0.2s;
+}
+
+.arrowOpen {
+  transform: rotate(180deg);
+}
+
+/* Dropdown Menu */
+.dropdownMenu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  overflow: hidden;
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Search Section */
+.searchSection {
+  padding: 0.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.875rem;
+}
+
+.searchInput:focus {
+  outline: 2px solid #7c3aed;
+  outline-offset: -1px;
+  border-color: #7c3aed;
+}
+
+/* Profile List */
+.profileList {
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.profileItem {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.15s;
+  font-size: 0.875rem;
+  color: #1a1a1a;
+  text-align: left;
+}
+
+.profileItem:hover {
+  background-color: #f3f4f6;
+}
+
+.profileItemActive {
+  background-color: #ede9fe;
+  color: #7c3aed;
+}
+
+.checkIcon {
+  flex-shrink: 0;
+  color: #7c3aed;
+}
+
+.emptyState {
+  padding: 2rem 1rem;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 0.875rem;
+}
+
+/* Add Profile Section */
+.addProfileContainer {
+  border-top: 1px solid #e5e7eb;
+  padding: 10px;
+}
+
+.addButton {
+  width: 100%;
+  padding: 0.5rem 0.7rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: 1px solid #eee;;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+  font-size: 0.875rem;
+  /* color: #7c3aed; */
+}
+
+.addButton:hover {
+  background-color: #7c3aed;
+  color: #f3f4f6;
+}
+
+.addButton svg {
+  flex-shrink: 0;
+}
+
+/* Add Profile Form */
+.addForm {
+  padding: 0.75rem;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.addInput {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.875rem;
+}
+
+.addInput:focus {
+  outline: 2px solid #7c3aed;
+  outline-offset: -1px;
+  border-color: #7c3aed;
+}
+
+.timezoneSelect {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.timezoneSelect:focus {
+  outline: 2px solid #7c3aed;
+  outline-offset: -1px;
+  border-color: #7c3aed;
+}
+
+.addFormButtons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.cancelButton {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  background-color: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.cancelButton:hover {
+  background-color: #f9fafb;
+  border-color: #9ca3af;
+}
+
+.submitButton {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  background-color: #7c3aed;
+  border: 1px solid #7c3aed;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.submitButton:hover {
+  background-color: #6d28d9;
+}
+
+.submitButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Backdrop */
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 90;
+  background-color: transparent;
+}
