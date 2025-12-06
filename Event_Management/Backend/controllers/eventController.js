@@ -251,6 +251,7 @@ const updateEvent = async (req, res) => {
     }
 
     await event.save();
+    await event.populate('profiles');
 
     res.status(200).json({
       status: 'Success',
