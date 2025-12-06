@@ -9,7 +9,7 @@
     "start": "nodemon server.js"
   },
   "author": "Susovan Sahoo",
-  "license": "ISC",
+  "license": "MIT",
   "prettier": {
     "singleQuote": true
   },
