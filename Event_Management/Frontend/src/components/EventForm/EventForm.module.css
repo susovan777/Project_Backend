@@ -214,7 +214,7 @@
   left: 0.75rem;
   width: 18px;
   height: 18px;
-  border: 2px solid #d1d5db;
+  border: 2px solid #e6e8ec;
   border-radius: 4px;
   background-color: #fff;
   display: flex;
@@ -224,12 +224,12 @@
 }
 
 .checkbox:checked + .checkboxLabel + .checkboxMark {
-  background-color: #6c63ff;
-  border-color: #6c63ff;
+  border: none;
 }
 
-.checkboxMark svg {
-  color: #fff;
+.checkboxMark {
+  color: #6c63ff;
+  
 }
 
 .emptyState {

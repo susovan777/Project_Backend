@@ -46,7 +46,6 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
-  margin-bottom: 1rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid #f3f4f6;
 }
@@ -92,10 +91,10 @@
   gap: 0.25rem;
 }
 
-.time::before {
+/* .time::before {
   content: '⏰';
   font-size: 0.75rem;
-}
+} */
 
 /* Timestamps */
 .timestamps {
@@ -127,12 +126,13 @@
 /* Action Buttons */
 .actions {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 0.75rem;
 }
 
 .editButton,
-.logsButton {
+.logsButton,
+.deleteButton {
   padding: 0.625rem 1rem;
   border-radius: 6px;
   font-size: 0.875rem;
@@ -171,6 +171,14 @@
   transform: translateY(-1px);
 }
 
+.deleteButton {
+  border-color: #f3d8dd;
+  color: #f00c0c;
+}
+
+.deleteButton:hover {
+  background-color: #feeeee;
+}
 /* Responsive */
 @media (max-width: 640px) {
   .timeSection {

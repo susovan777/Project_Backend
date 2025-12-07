@@ -67,22 +67,22 @@ function EditEventModal({ event, onClose }) {
 
     // Validation
     if (!title.trim()) {
-      alert('Please enter event title');
+      toast.error('Please enter event title');
       return;
     }
 
     if (selectedProfiles.length === 0) {
-      alert('Please select at least one profile');
+      toast.error('Please select at least one profile');
       return;
     }
 
     if (!startDate || !startTime) {
-      alert('Please select start date and time');
+      toast.error('Please select start date and time');
       return;
     }
 
     if (!endDate || !endTime) {
-      alert('Please select end date and time');
+      toast.error('Please select end date and time');
       return;
     }
 
@@ -92,7 +92,7 @@ function EditEventModal({ event, onClose }) {
 
     // Validate end is after start
     if (new Date(endDateTime) <= new Date(startDateTime)) {
-      alert('End date/time must be after start date/time');
+      toast.error('End date/time must be after start date/time');
       return;
     }
 

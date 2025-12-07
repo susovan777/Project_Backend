@@ -1,10 +1,11 @@
-import { TIMEZONES } from '../../utils/timezones';
-import EventCard from '../EventCard/EventCard';
-import styles from './EventList.module.css';
-import useAppStore from '../../store/useAppStore';
 import { useEffect } from 'react';
+import styles from './EventList.module.css';
+import { CiCalendar } from 'react-icons/ci';
+import EventCard from '../EventCard/EventCard';
+import { TIMEZONES } from '../../utils/timezones';
+import useAppStore from '../../store/useAppStore';
 
-function EventList({ onEditEvent, onViewLogs }) {
+function EventList({ onEditEvent, onViewLogs, onDelete }) {
   const {
     events,
     currentProfile,
@@ -26,7 +27,7 @@ function EventList({ onEditEvent, onViewLogs }) {
     }
   }, [currentProfile, getEventsByProfile, getAllEvents]);
 
-  // console.log(events);
+  // console.log(currentTimezone);
 
   return (
     <div className={styles.container}>
@@ -60,33 +61,12 @@ function EventList({ onEditEvent, onViewLogs }) {
           </div>
         ) : events.length === 0 ? (
           <div className={styles.emptyState}>
-            <svg
-              className={styles.emptyIcon}
-              width="64"
-              height="64"
-              viewBox="0 0 64 64"
-              fill="none"
-            >
-              <path
-                d="M53.3333 10.6667H10.6667C8.45753 10.6667 6.66667 12.4575 6.66667 14.6667V53.3333C6.66667 55.5425 8.45753 57.3333 10.6667 57.3333H53.3333C55.5425 57.3333 57.3333 55.5425 57.3333 53.3333V14.6667C57.3333 12.4575 55.5425 10.6667 53.3333 10.6667Z"
-                stroke="currentColor"
-                strokeWidth="3"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M42.6667 5.33334V16M21.3333 5.33334V16M6.66667 26.6667H57.3333"
-                stroke="currentColor"
-                strokeWidth="3"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <CiCalendar className={styles.emptyIcon} />
             <h3 className={styles.emptyTitle}>No events found</h3>
             <p className={styles.emptyDescription}>
               {currentProfile
-                ? `No events assigned to ${currentProfile.name}. Create one using the form on the left.`
-                : 'Select a profile from the dropdown above to view events, or create a new event using the form on the left.'}
+                ? `No events assigned to ${currentProfile.name}. Create one using the form.`
+                : 'Create a new event using the form.'}
             </p>
           </div>
         ) : (
@@ -98,6 +78,7 @@ function EventList({ onEditEvent, onViewLogs }) {
                 currentTimezone={currentTimezone}
                 onEdit={onEditEvent}
                 onViewLogs={onViewLogs}
+                onDelete={onDelete}
               />
             ))}
           </div>

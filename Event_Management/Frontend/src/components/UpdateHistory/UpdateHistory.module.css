@@ -110,6 +110,7 @@
 .emptyIcon {
   color: #d1d5db;
   margin-bottom: 1.5rem;
+  font-size: 5rem;
 }
 
 .emptyTitle {
@@ -196,7 +197,7 @@
   flex-shrink: 0;
 }
 
-.timestamp svg {
+.timestamp {
   flex-shrink: 0;
 }
 

@@ -4,6 +4,9 @@ import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import useAppStore from '../../store/useAppStore';
 import styles from './UpdateHistory.module.css';
+import { GrClose } from 'react-icons/gr';
+import { GoHistory } from 'react-icons/go';
+import { IoMdTime } from "react-icons/io";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -105,14 +108,7 @@ function UpdateHistoryModal({ event, onClose }) {
             onClick={onClose}
             type="button"
           >
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path
-                d="M15 5L5 15M5 5L15 15"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
-            </svg>
+            <GrClose size={20} />
           </button>
         </div>
 
@@ -120,21 +116,7 @@ function UpdateHistoryModal({ event, onClose }) {
         <div className={styles.content}>
           {formattedLogs.length === 0 ? (
             <div className={styles.emptyState}>
-              <svg
-                className={styles.emptyIcon}
-                width="64"
-                height="64"
-                viewBox="0 0 64 64"
-                fill="none"
-              >
-                <path
-                  d="M32 8V32L44 44M56 32C56 45.2548 45.2548 56 32 56C18.7452 56 8 45.2548 8 32C8 18.7452 18.7452 8 32 8C45.2548 8 56 18.7452 56 32Z"
-                  stroke="currentColor"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <GoHistory className={styles.emptyIcon} />
               <h3 className={styles.emptyTitle}>No update history yet</h3>
               <p className={styles.emptyDescription}>
                 Changes made to this event will appear here
@@ -154,24 +136,7 @@ function UpdateHistoryModal({ event, onClose }) {
                         {getFieldDisplayName(log.field)}
                       </span>
                       <span className={styles.timestamp}>
-                        <svg
-                          width="14"
-                          height="14"
-                          viewBox="0 0 14 14"
-                          fill="none"
-                        >
-                          <path
-                            d="M7 12.25C9.89949 12.25 12.25 9.89949 12.25 7C12.25 4.10051 9.89949 1.75 7 1.75C4.10051 1.75 1.75 4.10051 1.75 7C1.75 9.89949 4.10051 12.25 7 12.25Z"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                          />
-                          <path
-                            d="M7 4.375V7L8.75 8.75"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                          />
-                        </svg>
+                        <IoMdTime size={16} />
                         {log.timestamp}
                       </span>
                     </div>

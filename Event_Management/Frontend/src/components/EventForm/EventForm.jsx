@@ -1,15 +1,20 @@
+import toast from 'react-hot-toast';
 import { useState, useEffect } from 'react';
 import styles from './EventForm.module.css';
+import { FaPlus } from 'react-icons/fa6';
+import { IoIosArrowDown } from 'react-icons/io';
+import { ImCheckboxChecked } from 'react-icons/im';
 import useAppStore from '../../store/useAppStore.js';
 import { TIMEZONES } from '../../utils/timezones.js';
 
 function EventForm() {
-  const { profiles, createEvent, loading, currentProfile } = useAppStore();
+  const { profiles, createEvent, currentProfile } = useAppStore();
 
   // Form state
+  const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState('');
   const [selectedProfiles, setSelectedProfiles] = useState([]);
-  const [timezone, setTimezone] = useState('Asia/Kolkata');
+  const [timezone, setTimezone] = useState('Asia/Calcutta');
   const [startDate, setStartDate] = useState('');
   const [startTime, setStartTime] = useState('09:00');
   const [endDate, setEndDate] = useState('');
@@ -47,25 +52,30 @@ function EventForm() {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     // Validation
     if (!title.trim()) {
-      alert('Please enter event title');
+      toast.error('Please enter event title');
+      setLoading(false);
       return;
     }
 
     if (selectedProfiles.length === 0) {
-      alert('Please select at least one profile');
+      toast.error('Please select at least one profile');
+      setLoading(false);
       return;
     }
 
     if (!startDate || !startTime) {
-      alert('Please select start date and time');
+      toast.error('Please select start date and time');
+      setLoading(false);
       return;
     }
 
     if (!endDate || !endTime) {
-      alert('Please select end date and time');
+      toast.error('Please select end date and time');
+      setLoading(false);
       return;
     }
 
@@ -75,9 +85,13 @@ function EventForm() {
 
     // Validate end is after start
     if (new Date(endDateTime) <= new Date(startDateTime)) {
-      alert('End date/time must be after start date/time');
+      toast.error('End date/time must be after start date/time');
+      setLoading(false);
       return;
     }
+
+    console.log(startDateTime);
+    console.log(endDateTime);
 
     try {
       await createEvent({
@@ -96,9 +110,12 @@ function EventForm() {
       setEndDate('');
       setEndTime('09:00');
 
-      alert('Event created successfully!');
+      toast.success('Event created successfully!');
+      setLoading(false);
     } catch (error) {
-      alert(error.response?.data?.message || 'Failed to create event');
+      setLoading(false);
+      toast.error('Failed to create event!');
+      console.error(error.response?.data?.message || 'Failed to create event');
     }
   };
 
@@ -139,23 +156,12 @@ function EventForm() {
               <span className={styles.multiSelectText}>
                 {getSelectedProfileNames()}
               </span>
-              <svg
+              <IoIosArrowDown
+                size={18}
                 className={`${styles.arrow} ${
                   isProfileDropdownOpen ? styles.arrowOpen : ''
                 }`}
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-              >
-                <path
-                  d="M5 7.5L10 12.5L15 7.5"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              />
             </button>
 
             {/* Dropdown Menu */}
@@ -191,20 +197,7 @@ function EventForm() {
                         </span>
                         <span className={styles.checkboxMark}>
                           {selectedProfiles.includes(profile._id) && (
-                            <svg
-                              width="12"
-                              height="12"
-                              viewBox="0 0 12 12"
-                              fill="none"
-                            >
-                              <path
-                                d="M10 3L4.5 8.5L2 6"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
+                            <ImCheckboxChecked size={16} />
                           )}
                         </span>
                       </label>
@@ -310,14 +303,7 @@ function EventForm() {
           className={styles.submitButton}
           disabled={loading}
         >
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path
-              d="M10 4V16M4 10H16"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-          </svg>
+          <FaPlus size={16} />
           {loading ? 'Creating...' : 'Create Event'}
         </button>
       </form>

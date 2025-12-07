@@ -1,7 +1,11 @@
 import { useState } from 'react';
-import { TIMEZONES } from '../../utils/timezones.js';
+import toast from 'react-hot-toast';
 import styles from './ProfileSelector.module.css';
+import { TIMEZONES } from '../../utils/timezones.js';
 import useAppStore from '../../store/useAppStore.js';
+import { GrAdd, GrCheckmark } from 'react-icons/gr';
+import { IoIosArrowDown } from 'react-icons/io';
+import { RiDeleteBin4Line } from 'react-icons/ri';
 
 function ProfileSelector() {
   const {
@@ -9,6 +13,7 @@ function ProfileSelector() {
     currentProfile,
     setCurrentProfile,
     createProfile,
+    deleteProfile,
     loading,
   } = useAppStore();
 
@@ -28,7 +33,10 @@ function ProfileSelector() {
     e.preventDefault();
 
     if (!newProfileName.trim()) {
-      alert('Please enter a profile name');
+      toast('Please enter a profile name', {
+        duration: 4000,
+        icon: '⚠️',
+      });
       return;
     }
 
@@ -42,16 +50,30 @@ function ProfileSelector() {
       setNewProfileName('');
       setNewProfileTimezone('Asia/Kolkata');
       setIsAddingProfile(false);
+      toast.success('New profile added');
     } catch (error) {
-      alert(error.response?.data?.message || 'Failed to create profile');
+      toast.error('Failed to create profile, see console for detail');
+      console.error(
+        error.response?.data?.message || 'Failed to create profile'
+      );
+    }
+  };
+
+  const handleDeleteProfile = async (id) => {
+    try {
+      await deleteProfile(id);
+      toast.success('Profile deleted successfully');
+    } catch (error) {
+      toast.error('Failed to delete profile, see console for detail');
+      console.error(
+        error.response?.data?.message || 'Failed to delete profile'
+      );
     }
   };
 
   // console.log(profiles)
   return (
     <div className={styles.container}>
-      {/* <label className={styles.label}>Select current profile...</label> */}
-
       <div className={styles.dropdown}>
         {/* Selected Profile Display */}
         <button
@@ -62,23 +84,12 @@ function ProfileSelector() {
           <span className={styles.selectedText}>
             {currentProfile ? currentProfile.name : 'Select current profile...'}
           </span>
-          <svg
+          <IoIosArrowDown
+            size={20}
             className={`${styles.arrow} ${
               isDropdownOpen ? styles.arrowOpen : ''
             }`}
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-          >
-            <path
-              d="M5 7.5L10 12.5L15 7.5"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          />
         </button>
 
         {/* Dropdown Menu */}
@@ -109,24 +120,16 @@ function ProfileSelector() {
                     }`}
                     onClick={() => handleProfileSelect(profile)}
                   >
-                    <svg
-                      className={styles.checkIcon}
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                    >
-                      {currentProfile?._id === profile._id && (
-                        <path
-                          d="M13.5 4L6 11.5L2.5 8"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      )}
-                    </svg>
+                    <span className={styles.checkIcon}>
+                      {currentProfile?._id === profile._id && <GrCheckmark />}
+                    </span>
                     <span>{profile.name}</span>
+                    <span
+                      className={styles.deleteIcon}
+                      onClick={() => handleDeleteProfile(profile._id)}
+                    >
+                      <RiDeleteBin4Line size={18} />
+                    </span>
                   </button>
                 ))
               )}
@@ -139,14 +142,7 @@ function ProfileSelector() {
                   className={styles.addButton}
                   onClick={() => setIsAddingProfile(true)}
                 >
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path
-                      d="M8 3.5V12.5M3.5 8H12.5"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                    />
-                  </svg>
+                  <GrAdd />
                   Add Profile
                 </button>
               </div>

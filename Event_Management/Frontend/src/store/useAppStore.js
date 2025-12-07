@@ -60,6 +60,29 @@ const useAppStore = create((set, get) => ({
   // Update profile timezone
   updateProfileTimezone: async () => {},
 
+  // Delete profile
+  deleteProfile: async (profileId) => {
+    set({ loading: true, error: null });
+    try {
+      await profileAPI.delete(profileId);
+      set((state) => ({
+        profiles: state.profiles.filter((p) => profileId !== p._id),
+        loading: false,
+      }));
+
+      // If we deleted the currently selected profile, clear selection
+      if (get().currentProfile?._id === profileId) {
+        set({ currentProfile: null });
+        get().fetchAllEvents();
+      }
+    } catch (error) {
+      set({
+        error: error.response?.data?.message || 'Failed to delete profile',
+        loading: false,
+      });
+    }
+  },
+
   // ============== EVENT ACTIONS ==============
 
   // Fetch events for current profile

@@ -10,7 +10,7 @@ export const TIMEZONES = [
   { value: 'Europe/Paris', label: 'Paris (CET)' },
   { value: 'Europe/Berlin', label: 'Berlin (CET)' },
   { value: 'Asia/Dubai', label: 'Dubai (GST)' },
-  { value: 'Asia/Kolkata', label: 'India (IST)' },
+  { value: 'Asia/Calcutta', label: 'India (IST)' },
   { value: 'Asia/Shanghai', label: 'China (CST)' },
   { value: 'Asia/Tokyo', label: 'Japan (JST)' },
   { value: 'Australia/Sydney', label: 'Sydney (AEDT)' },

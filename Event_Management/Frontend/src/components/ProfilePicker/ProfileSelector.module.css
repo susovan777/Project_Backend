@@ -107,7 +107,7 @@
 
 .profileItem {
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 2.5rem;
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -118,6 +118,7 @@
   font-size: 0.875rem;
   color: #1a1a1a;
   text-align: left;
+  position: relative;
 }
 
 .profileItem:hover {
@@ -132,6 +133,19 @@
 .checkIcon {
   flex-shrink: 0;
   color: #7c3aed;
+  position: absolute;
+  left: 15px;
+}
+
+.deleteIcon {
+  position: absolute;
+  right: 15px;
+  color: #d1d5db;
+}
+
+.deleteIcon:hover {
+  color: #ff7777;
+  transition: all 0.2s;
 }
 
 .emptyState {
@@ -154,7 +168,7 @@
   align-items: center;
   gap: 0.5rem;
   background: none;
-  border: 1px solid #eee;;
+  border: 1px solid #eee;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.15s;
@@ -167,7 +181,7 @@
   color: #f3f4f6;
 }
 
-.addButton svg {
+.addButton {
   flex-shrink: 0;
 }
 

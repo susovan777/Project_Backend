@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import styles from './App.module.css';
+import toast, { Toaster } from 'react-hot-toast';
 import useAppStore from './store/useAppStore.js';
 import EventForm from './components/EventForm/EventForm.jsx';
 import EventList from './components/EventList/EventList.jsx';
@@ -8,7 +9,7 @@ import EditEventModal from './components/EditEvent/EditEvent.jsx';
 import UpdateHistoryModal from './components/UpdateHistory/UpdateHistory.jsx';
 
 function App() {
-  const { getProfiles, getAllEvents } = useAppStore();
+  const { getProfiles, getAllEvents, deleteEvent } = useAppStore();
 
   // Modal states
   const [editingEvent, setEditingEvent] = useState(null);
@@ -30,8 +31,16 @@ function App() {
     setViewingLogsEvent(event);
   };
 
+  // Handler for deleting event
+  const handleDeleteEvent = (event) => {
+    deleteEvent(event);
+    console.log('⚠️ Event Deleted Successfully');
+    toast.success('Event deleted successfully!');
+  };
+
   return (
     <div className={styles.app}>
+      <Toaster />
       {/* Header */}
       <header className={styles.header}>
         <div className={styles.headerContent}>
@@ -60,6 +69,7 @@ function App() {
           <EventList
             onEditEvent={handleEditEvent}
             onViewLogs={handleViewLogs}
+            onDelete={handleDeleteEvent}
           />
         </div>
       </main>
