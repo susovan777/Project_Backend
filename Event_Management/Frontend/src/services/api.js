@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { config } from '../config/endpoint.js';
+import toast from 'react-hot-toast';
 
 const API_URL = `${config.endpoint}/api`;
 
@@ -46,10 +47,13 @@ api.interceptors.response.use(
     // global error handling
     if (error.response) {
       console.error('API Error:', error.response.data); // server error
+      toast.error('API Error!');
     } else if (error.request) {
       console.error('Network Error:', error.message); // request made but no response
+      toast.error('Network Error!');
     } else {
       console.error('Error:', error.message); // other error
+      toast.error('Error! Check console!');
     }
 
     return Promise.reject(error);

@@ -5,6 +5,10 @@ import timezone from 'dayjs/plugin/timezone';
 import styles from './EditEvent.module.css';
 import { TIMEZONES } from '../../utils/timezones.js';
 import useEventStore from '../../store/useAppStore.js';
+import toast from 'react-hot-toast';
+import { GrClose } from 'react-icons/gr';
+import { IoIosArrowDown } from 'react-icons/io';
+import { ImCheckboxChecked } from 'react-icons/im';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -101,10 +105,11 @@ function EditEventModal({ event, onClose }) {
         eventTimezone: timezone,
       });
 
-      // alert('Event updated successfully!');
       onClose();
+      toast.success('Event updated successfully!');
     } catch (error) {
-      alert(error.response?.data?.message || 'Failed to update event');
+      toast.error('Failed to update event');
+      console.error(error.response?.data?.message || 'Failed to update event');
     }
   };
 
@@ -126,14 +131,7 @@ function EditEventModal({ event, onClose }) {
             onClick={onClose}
             type="button"
           >
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path
-                d="M15 5L5 15M5 5L15 15"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
-            </svg>
+            <GrClose size={20} />
           </button>
         </div>
 
@@ -171,23 +169,12 @@ function EditEventModal({ event, onClose }) {
                 <span className={styles.multiSelectText}>
                   {getSelectedProfileNames()}
                 </span>
-                <svg
+                <IoIosArrowDown
+                  size={18}
                   className={`${styles.arrow} ${
                     isProfileDropdownOpen ? styles.arrowOpen : ''
                   }`}
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                >
-                  <path
-                    d="M5 7.5L10 12.5L15 7.5"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                />
               </button>
 
               {/* Dropdown Menu */}
@@ -216,20 +203,7 @@ function EditEventModal({ event, onClose }) {
                           </span>
                           <span className={styles.checkboxMark}>
                             {selectedProfiles.includes(profile._id) && (
-                              <svg
-                                width="12"
-                                height="12"
-                                viewBox="0 0 12 12"
-                                fill="none"
-                              >
-                                <path
-                                  d="M10 3L4.5 8.5L2 6"
-                                  stroke="currentColor"
-                                  strokeWidth="2"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                />
-                              </svg>
+                              <ImCheckboxChecked size={16} />
                             )}
                           </span>
                         </label>

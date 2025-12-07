@@ -278,12 +278,11 @@
 }
 
 .checkbox:checked + .checkboxLabel + .checkboxMark {
-  background-color: #7c3aed;
-  border-color: #7c3aed;
+  border: none;
 }
 
-.checkboxMark svg {
-  color: #fff;
+.checkboxMark {
+  color: #6c63ff;
 }
 
 .emptyState {

@@ -35,6 +35,17 @@ const profileAPI = {
     const response = await api.put(`/profiles/${id}`, profileData);
     return response.data;
   },
+
+  /**
+   * Delete profile
+   * @param {string} id - Profile id
+   * @returns {promise} - Response with message
+   */
+
+  delete: async (id) => {
+    const response = await api.delete(`/profiles/${id}`);
+    return response.data;
+  },
 };
 
 export default profileAPI;
