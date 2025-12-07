@@ -87,4 +87,24 @@ const updateProfile = async (req, res) => {
   }
 };
 
-export { createProfile, getProfiles, updateProfile };
+// @desc    Delete profile
+// @route   PUT /api/profiles/:id
+// @access  Public
+const deleteProfile = async (req, res) => {
+  try {
+    await Profile.findByIdAndDelete(req.params.id);
+
+    res.status(200).json({
+      status: 'success',
+      message: 'Profile deleted successfully',
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      status: 'fali',
+      message: error.message,
+    });
+  }
+};
+
+export { createProfile, getProfiles, updateProfile, deleteProfile };

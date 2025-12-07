@@ -81,13 +81,6 @@ const getEventsByProfile = async (req, res) => {
       return eventObj;
     });
 
-    if (eventsWithTimezone.length === 0) {
-      return res.status(404).json({
-        status: 'fail',
-        message: '🙅 No Events found',
-      });
-    }
-
     res.status(200).json({
       status: 'success',
       count: eventsWithTimezone.length,
