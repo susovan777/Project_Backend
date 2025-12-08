@@ -90,9 +90,6 @@ function EventForm() {
       return;
     }
 
-    console.log(startDateTime);
-    console.log(endDateTime);
-
     try {
       await createEvent({
         title: title.trim(),

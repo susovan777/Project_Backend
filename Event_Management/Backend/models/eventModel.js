@@ -41,7 +41,7 @@ const eventSchema = mongoose.Schema(
     updateHistory: [updatedLogSchema],
   },
   {
-    timeStamps: true,
+    timestamps: true,
   }
 );
 

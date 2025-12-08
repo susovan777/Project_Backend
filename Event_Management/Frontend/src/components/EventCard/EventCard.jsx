@@ -80,18 +80,12 @@ function EventCard({ event, currentTimezone, onEdit, onViewLogs, onDelete }) {
 
       {/* Timestamps */}
       <div className={styles.timestamps}>
-        <div className={styles.timestamp}>
-          <span className={styles.timestampLabel}>Created:</span>
-          <span className={styles.timestampValue}>
-            {formatTimestamp(event.createdAt)}
-          </span>
-        </div>
-        <div className={styles.timestamp}>
-          <span className={styles.timestampLabel}>Updated:</span>
-          <span className={styles.timestampValue}>
-            {formatTimestamp(event.updatedAt)}
-          </span>
-        </div>
+        <p className={styles.timestamp}>
+          Created: {formatTimestamp(event.createdAt)}
+        </p>
+        <p className={styles.timestamp}>
+          Updated: {formatTimestamp(event.updatedAt)}
+        </p>
       </div>
 
       {/* Action Buttons */}
