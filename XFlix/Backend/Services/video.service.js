@@ -114,4 +114,5 @@ class VideoService {
   }
 }
 
+// Export single instance (Singleton pattern)
 export default new VideoService();
