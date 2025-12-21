@@ -8,7 +8,7 @@ connectDB();
 
 app.use(cors());
 
-app.get('/', (req, res) => {
+app.get('/api/v1', (req, res) => {
     res.send("Hello from backend")
 })
 

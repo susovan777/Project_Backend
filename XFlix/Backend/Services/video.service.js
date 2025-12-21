@@ -3,6 +3,15 @@
  *  Separating this from controllers keeps code clean and reusable
  */
 
+/**
+ * Services which I've made here:
+ *  getAllVideos (filters)
+ *  getVideoById (videoId)
+ *  createVideo (videoData)
+ *  updateVotes (videoId, vote, change)
+ *  updateViewCount (videoId)
+ */
+
 import Video from '../Model/video';
 
 class VideoService {

@@ -1,7 +1,7 @@
 {
   "name": "xflix-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "XFlix video management backend",
   "main": "server.js",
   "type": "module",
   "prettier": {
@@ -12,8 +12,8 @@
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["xflix", "express", "mongodb"],
+  "author": "Susovan Sahoo",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^3.1.11"
