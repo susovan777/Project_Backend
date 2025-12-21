@@ -12,7 +12,11 @@
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
-  "keywords": ["xflix", "express", "mongodb"],
+  "keywords": [
+    "xflix",
+    "express",
+    "mongodb"
+  ],
   "author": "Susovan Sahoo",
   "license": "ISC",
   "devDependencies": {
@@ -22,6 +26,7 @@
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
+    "helmet": "^8.1.0",
     "mongoose": "^9.0.1"
   }
 }

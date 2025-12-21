@@ -60,7 +60,7 @@ const createVideo = catchAsync(async (req, res) => {
   const videoData = req.body;
 
   // Check if video with same videoId already exists
-  const existingVideo = await videoService.createVideo(videoData.videoLink);
+  const existingVideo = await videoService.getVideoById(videoData.videoLink);
   if (existingVideo) {
     throw new ApiError(
       400,
@@ -70,7 +70,7 @@ const createVideo = catchAsync(async (req, res) => {
 
   const video = await videoService.createVideo(videoData);
 
-  res.status(200).json({
+  res.status(201).json({
     status: 'success',
     message: 'Video created successfully',
     data: video,

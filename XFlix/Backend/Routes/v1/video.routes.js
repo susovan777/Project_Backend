@@ -10,7 +10,8 @@ import {
   getVideo,
   updateViews,
   updateVotes,
-} from '../Controllers/video.controller';
+} from '../../Controllers/video.controller.js';
+import validateVideo from '../../Middlewares/validate.js';
 
 const router = express.Router();
 
@@ -21,10 +22,10 @@ router.get('/', getAllVideos);
 router.get('/:videoId', getVideo);
 
 // POST /v1/videos - Create new video
-router.post('/', createVideo);
+router.post('/', validateVideo, createVideo);
 
 // PATCH /v1/videos/:videoId/votes - Update votes
-router.patch('/:videId/votes', updateVotes);
+router.patch('/:videoId/votes', updateVotes);
 
 // PATCH /v1/videos/:videoId/views - Update view count
 router.patch('/:videoId/views', updateViews);

@@ -4,7 +4,7 @@
  */
 
 /**
- * Services which I've made here:
+ * Services which I've created here:
  *  getAllVideos (filters)
  *  getVideoById (videoId)
  *  createVideo (videoData)
@@ -12,7 +12,7 @@
  *  updateViewCount (videoId)
  */
 
-import Video from '../Model/video';
+import Video from '../Model/video.js';
 
 class VideoService {
   /**
@@ -62,7 +62,7 @@ class VideoService {
    * @returns {Promise<Object>} Video object
    */
   async getVideoById(videoId) {
-    const video = await Video.findOne({ videoId });
+    const video = await Video.findById(videoId);
     return video;
   }
 
@@ -84,7 +84,7 @@ class VideoService {
    * @returns {Promise<Object>} Updated video
    */
   async updateVotes(videoId, vote, change) {
-    const video = await Video.findOne({ videoId });
+    const video = await Video.findById(videoId);
 
     if (!video) return null;
 
@@ -113,8 +113,8 @@ class VideoService {
    * @returns {Promise<Object>} Updated video
    */
   async updateViewCount(videoId) {
-    const video = await Video.findOneAndUpdate(
-      { videoId },
+    const video = await Video.findByIdAndUpdate(
+      videoId,
       { $inc: { viewCount: 1 } }, // $inc = increment by 1
       { new: true } // Return updated document
     );
