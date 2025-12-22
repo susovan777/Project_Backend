@@ -4,63 +4,70 @@
  */
 import ApiError from '../Utils/ApiError.js';
 
-const validateVideo = (req, res, next) => {
-  const { videoLink, title, genre, contentRating, releaseDate } =
-    req.body;
-
-  // Check required fields
-  const requiredFields = {
-    videoLink: 'Video Link',
-    title: 'Title',
-    genre: 'Genre',
-    contentRating: 'Content Rating',
-    releaseDate: 'Release Date',
-  };
-
-  // Check each required field
-  for (const [field, label] of Object.entries(requiredFields)) {
-    if (!req.body[field]) {
-      throw new ApiError(400, `${label} is required`);
+/**
+ * Generic validation middleware
+ * Validates req.params, req.query, and req.body based on schema
+ * 
+ * How it works:
+ * 1. Takes a validation schema (from video.validations.js)
+ * 2. Returns a middleware function
+ * 3. Middleware validates the request against schema
+ * 4. If valid → calls next() to proceed to controller
+ * 5. If invalid → throws ApiError with validation message
+ * 
+ * Usage in routes:
+ * router.get('/', validate(videoValidation.getVideos), getVideos);
+ */
+export const validate = (schema) => (req, res, next) => {
+  // Pick only the parts of req that need validation
+  const validSchema = Object.keys(schema).reduce((obj, key) => {
+    if (Object.prototype.hasOwnProperty.call(req, key)) {
+      obj[key] = req[key];
     }
-  }
+    return obj;
+  }, {});
 
-  // YouTube Link Validation (Regex)
-  const youtubeRegex = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((?:\w|-){11})(?:\S+)?$/;
+  // Compile schema into Joi validator
+  const compiledSchema = Joi.compile(schema);
   
-  if (!youtubeRegex.test(videoLink)) {
-    throw new ApiError(400, 'Video Link must be a valid YouTube URL');
+  // Validate request data
+  const { value, error } = compiledSchema.validate(validSchema, {
+    abortEarly: false, // Collect all errors, not just first one
+    stripUnknown: true // Remove unknown fields from request
+  });
+
+  // If validation fails, throw error
+  if (error) {
+    // Extract all error messages
+    const errorMessage = error.details
+      .map((detail) => detail.message)
+      .join(', ');
+    
+    throw new ApiError(400, errorMessage);
   }
 
-  // Validate genre
-  const validGenres = [
-    'Education',
-    'Sports',
-    'Movies',
-    'Comedy',
-    'Lifestyle',
-    'All',
-  ];
-  if (!validGenres.includes(genre)) {
-    throw new ApiError(400, `Genre must be one of: ${validGenres.join(', ')}`);
-  }
-
-  // Validate content rating
-  const validRatings = ['Anyone', '7+', '12+', '16+', '18+'];
-  if (!validRatings.includes(contentRating)) {
-    throw new ApiError(
-      400,
-      `Content rating must be one of: ${validRatings.join(', ')}`
-    );
-  }
-
-  // Validate release date format
-  const date = new Date(releaseDate);
-  if (isNaN(date.getTime())) {
-    throw new ApiError(400, 'Invalid release date format');
-  }
-
-  // If all validations pass, proceed to next middleware/controller
+  // Replace request data with validated values
+  Object.assign(req, value);
+  
+  // Proceed to next middleware/controller
   next();
 };
 
-export default validateVideo;
+/**
+ * Example validation flow:
+ * 
+ * Request: POST /v1/videos
+ * Body: { "videoLink": "invalid", "title": "Test" }
+ *       ↓
+ * validate(postVideo) middleware runs
+ *       ↓
+ * Joi validates against postVideo schema
+ *       ↓
+ * Finds errors: videoLink format invalid, genre missing, etc.
+ *       ↓
+ * Throws ApiError(400, "videoLink must be in format youtube.com/embed/..., genre is required")
+ *       ↓
+ * Error middleware catches it
+ *       ↓
+ * Sends response: { success: false, message: "..." }
+ */
