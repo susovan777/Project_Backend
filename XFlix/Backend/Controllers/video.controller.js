@@ -60,7 +60,7 @@ const createVideo = catchAsync(async (req, res) => {
   const videoData = req.body;
 
   // Check if video with same videoId already exists
-  const existingVideo = await videoService.getVideoById(videoData.videoLink);
+  const existingVideo = await videoService.getVideoByLink(videoData.videoLink);
   if (existingVideo) {
     throw new ApiError(
       400,

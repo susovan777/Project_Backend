@@ -67,6 +67,16 @@ class VideoService {
   }
 
   /**
+   * Get single video by videoLink
+   * @param {String} videoLink - Video Link (youtube.com/embed/...)
+   * @returns {Promise<Object>} Video object
+   */
+  async getVideoByLink(videoLink) {
+    const video = await Video.findOne({ videoLink });
+    return video;
+  }
+  
+  /**
    * Create new video
    * @param {Object} videoData - Video details
    * @returns {Promise<Object>} Created video
