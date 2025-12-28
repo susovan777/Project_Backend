@@ -1,0 +1,26 @@
+.footer {
+  margin-top: auto;
+  padding: 2rem 0;
+  border-top: 1px solid #e5e5e5;
+  background-color: #f8f8f8;
+  transition: all 0.3s ease;
+}
+
+.dark .footer {
+  border-top-color: #2d2d2d;
+  background-color: #1f1f1f;
+}
+
+.content {
+  text-align: center;
+}
+
+.text {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.dark .text {
+  color: #9ca3af;
+}
