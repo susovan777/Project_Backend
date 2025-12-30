@@ -1,0 +1,66 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.dark .label {
+  color: #d1d5db;
+}
+
+.required {
+  color: #e50914;
+  margin-left: 0.25rem;
+}
+
+.input {
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db;
+  background-color: white;
+  color: #1f2937;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.dark .input {
+  border-color: #4b5563;
+  background-color: #1f1f1f;
+  color: white;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #e50914;
+  box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.1);
+}
+
+.input::placeholder {
+  color: #9ca3af;
+}
+
+.dark .input::placeholder {
+  color: #6b7280;
+}
+
+.input.error {
+  border-color: #dc2626;
+}
+
+.input.error:focus {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+.errorMessage {
+  font-size: 0.75rem;
+  color: #dc2626;
+  margin-top: -0.25rem;
+}
