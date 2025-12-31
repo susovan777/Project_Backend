@@ -10,7 +10,7 @@ const ThemeProvider = ({ children }) => {
 
   // Load theme from localStorage on mount
   useEffect(() => {
-    const savedTheme = localStorage.getItem() || 'light';
+    const savedTheme = localStorage.getItem('xflix-theme') || 'light';
     setTheme(savedTheme);
 
     // Apply theme to HTML element

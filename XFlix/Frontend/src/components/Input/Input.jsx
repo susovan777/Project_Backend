@@ -27,7 +27,12 @@ const Input = ({
 }) => {
   return (
     <div className={`${styles.wrapper}`}>
-      {label && <label htmlFor=""></label>}
+      {label && (
+        <label htmlFor={name}>
+          {label}
+          {required && <span className={styles.required}>*</span>}
+        </label>
+      )}
 
       <input
         id={name}
