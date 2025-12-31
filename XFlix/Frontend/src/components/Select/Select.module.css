@@ -10,7 +10,7 @@
   color: #374151;
 }
 
-.dark .label {
+:global(html.dark) .label {
   color: #d1d5db;
 }
 
@@ -37,7 +37,7 @@
   padding-right: 2.5rem;
 }
 
-.dark .select {
+:global(html.dark) .select {
   border-color: #4b5563;
   background-color: #1f1f1f;
   color: white;
@@ -70,7 +70,7 @@
   color: #1f2937;
 }
 
-.dark .select option {
+:global(html.dark) .select option {
   background-color: #1f1f1f;
   color: white;
 }

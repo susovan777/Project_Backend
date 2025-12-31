@@ -47,11 +47,11 @@ const Select = ({
         <option value="" disabled>
           {placeholder}
         </option>
-        {options.map((option) => {
+        {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}
-          </option>;
-        })}
+          </option>
+        ))}
       </select>
 
       {/* Error message */}

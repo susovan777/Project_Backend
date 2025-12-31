@@ -10,7 +10,7 @@
   color: #374151;
 }
 
-.dark .label {
+:global(html.dark) .label {
   color: #d1d5db;
 }
 
@@ -30,7 +30,7 @@
   transition: all 0.2s ease;
 }
 
-.dark .input {
+:global(html.dark) .input {
   border-color: #4b5563;
   background-color: #1f1f1f;
   color: white;
@@ -46,7 +46,7 @@
   color: #9ca3af;
 }
 
-.dark .input::placeholder {
+:global(html.dark) .input::placeholder {
   color: #6b7280;
 }
 
