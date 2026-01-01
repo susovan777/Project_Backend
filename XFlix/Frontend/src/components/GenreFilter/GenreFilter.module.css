@@ -1,0 +1,69 @@
+.container {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.container::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollWrapper {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  min-width: min-content;
+}
+
+.button {
+  flex-shrink: 0;
+  padding: 0.5rem 1.25rem;
+  border-radius: 9999px;
+  border: 1px solid #d1d5db;
+  background-color: white;
+  color: #374151;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+:global(html.dark) .button {
+  border-color: #4b5563;
+  background-color: #1f1f1f;
+  color: #d1d5db;
+}
+
+.button:hover {
+  background-color: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+:global(html.dark) .button:hover {
+  background-color: #374151;
+  border-color: #6b7280;
+}
+
+.button.active {
+  background-color: #e50914;
+  color: white;
+  border-color: #e50914;
+}
+
+.button.active:hover {
+  background-color: #b20710;
+  border-color: #b20710;
+}
+
+.button:focus-visible {
+  outline: 2px solid #e50914;
+  outline-offset: 2px;
+}
+
+.button:active {
+  transform: scale(0.95);
+}
