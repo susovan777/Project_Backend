@@ -1,5 +1,6 @@
 import VideoCard from '../VideoCard/VideoCard';
 import styles from './VideoGrid.module.css';
+import { TvMinimalPlay } from 'lucide-react';
 
 /**
  * VideoGrid Component
@@ -32,7 +33,7 @@ const VideoGrid = ({ videos, onVideoClick, loading }) => {
   if (!videos || videos.length === 0) {
     return (
       <div className={styles.empty}>
-        <div className={styles.emptyIcon}>📹</div>
+        <div className={styles.emptyIcon}>📹<TvMinimalPlay /></div>
         <h3 className={styles.emptyTitle}>No videos found</h3>
         <p className={styles.emptyText}>
           Try adjusting your filters or upload a new video

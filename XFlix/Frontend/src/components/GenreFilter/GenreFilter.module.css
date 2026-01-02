@@ -1,10 +1,10 @@
 .container {
-  width: 100%;
+  display: flex;
+  justify-content: center;
   overflow-x: auto;
   overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  -ms-overflow-style: none;
+  margin: 1rem;
 }
 
 .container::-webkit-scrollbar {
@@ -57,6 +57,10 @@
 .button.active:hover {
   background-color: #b20710;
   border-color: #b20710;
+}
+
+:global(html.dark) .button.active {
+  background-color: #e50914;
 }
 
 .button:focus-visible {

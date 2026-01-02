@@ -1,5 +1,5 @@
 .header {
-  /* background-color: white; */
+  background-color: white;
   border-bottom: 1px solid #e5e5e5;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   position: sticky;
@@ -8,7 +8,7 @@
   transition: all 0.3s ease;
 }
 
-.dark .header {
+:global(html.dark) .header {
   background-color: #1f1f1f;
   border-bottom-color: #2d2d2d;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
@@ -35,6 +35,11 @@
   margin: 0;
 }
 
+.searchBox {
+  margin: auto 2rem;
+  width: 30rem;
+}
+
 .actions {
   display: flex;
   align-items: center;
@@ -47,7 +52,17 @@
     font-size: 1.5rem;
   }
 
+  .searchBox {
+    width: 15rem;
+  }
+
   .actions {
     gap: 0.5rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .searchBox {
+    max-width: 20rem;
   }
 }

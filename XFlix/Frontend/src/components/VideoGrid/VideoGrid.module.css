@@ -3,6 +3,7 @@
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
   animation: fadeIn 0.3s ease;
+  margin: 1rem 0;
 }
 
 @media (max-width: 640px) {

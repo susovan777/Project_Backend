@@ -19,8 +19,8 @@
 
 .input {
   width: 100%;
-  padding: 0.75rem 3rem 0.75rem 3rem;
-  border-radius: 9999px;
+  padding: 0.45rem 3rem;
+  border-radius: 2rem;
   border: 1px solid #d1d5db;
   background-color: white;
   color: #1f2937;
@@ -50,7 +50,7 @@
 
 .clearButton {
   position: absolute;
-  right: 0.75rem;
+  right: 0.45rem;
   display: flex;
   align-items: center;
   justify-content: center;

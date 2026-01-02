@@ -1,4 +1,6 @@
+import { getVideoAge } from '../../utils/dateDistance.js';
 import styles from './VideoCard.module.css';
+import { Eye, ThumbsUp, ThumbsDown } from 'lucide-react';
 
 /**
  * VideoCard Component
@@ -47,7 +49,7 @@ const VideoCard = ({ video, onClick }) => {
       {/* Content */}
       <div className={styles.content}>
         {/* Title */}
-        <h3 className={styles.title}>{VideoCard.title}</h3>
+        <h3 className={styles.title}>{video.title}</h3>
 
         {/* Stats */}
         <div className={styles.stats}>
@@ -74,7 +76,7 @@ const VideoCard = ({ video, onClick }) => {
         {/* Date */}
         <div className={styles.date}>
           {/* {formatDate(video.releaseDate)} */}
-          {video.releaseDate}
+          {getVideoAge(video.releaseDate)}
         </div>
       </div>
     </div>

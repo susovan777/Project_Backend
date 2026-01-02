@@ -29,6 +29,22 @@ const UploadVideoModal = ({ isOpen, onClose, onSubmit }) => {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Helper to convert any YouTube link to an Embed link
+  const convertToEmbedLink = (url) => {
+    // Regex to extract the Video ID from any YouTube URL format
+    const regExp =
+      /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+
+    // If a valid 11-character ID is found, return the embed URL
+    if (match && match[2].length === 11) {
+      return `https://www.youtube.com/embed/${match[2]}`;
+    }
+
+    // If conversion fails, return the original URL (or throw error)
+    return url;
+  };
+
   // Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,6 +66,9 @@ const UploadVideoModal = ({ isOpen, onClose, onSubmit }) => {
   // Validate form
   const validate = () => {
     const newErrors = {};
+
+    // Convert the link to embed link
+    formData.videoLink = convertToEmbedLink(formData.videoLink);
 
     // Video link
     if (!formData.videoLink.trim()) {
@@ -147,7 +166,7 @@ const UploadVideoModal = ({ isOpen, onClose, onSubmit }) => {
           type="text"
           onChange={handleChange}
           value={formData.videoLink}
-          placeholder="youtube.com/embed/dQw4w9WgXcQ"
+          placeholder="Enter video link to post"
           error={errors.videoLink}
           required={true}
         />
