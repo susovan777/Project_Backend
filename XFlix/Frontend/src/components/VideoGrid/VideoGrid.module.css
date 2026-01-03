@@ -51,12 +51,12 @@
 .emptyTitle {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #111827;
+  color: #6b7280;
   margin: 0 0 0.5rem 0;
 }
 
 :global(html.dark) .emptyTitle {
-  color: white;
+  color: #9ca3af;
 }
 
 .emptyText {

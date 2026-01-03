@@ -4,7 +4,7 @@
   overflow-x: auto;
   overflow-y: hidden;
   scrollbar-width: none;
-  margin: 1rem;
+  margin: 1rem 0;
 }
 
 .container::-webkit-scrollbar {

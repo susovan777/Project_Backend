@@ -33,7 +33,7 @@ const VideoGrid = ({ videos, onVideoClick, loading }) => {
   if (!videos || videos.length === 0) {
     return (
       <div className={styles.empty}>
-        <div className={styles.emptyIcon}>📹<TvMinimalPlay /></div>
+        <div className={styles.emptyIcon}><TvMinimalPlay size={64} /></div>
         <h3 className={styles.emptyTitle}>No videos found</h3>
         <p className={styles.emptyText}>
           Try adjusting your filters or upload a new video

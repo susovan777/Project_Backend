@@ -14,7 +14,7 @@ import { useEffect, useState } from 'react';
  * const debouncedQuery = useDebounce(searchQuery, 500);
  * // debouncedQuery updates 500ms after user stops typing
  */
-const useDebounce = (value, delay = 500) => {
+export const useDebounce = (value, delay = 500) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
   useEffect(() => {
@@ -26,6 +26,6 @@ const useDebounce = (value, delay = 500) => {
     // Cleanup function - cancels timeout if value changes
     return () => clearTimeout(handler);
   }, [value, delay]);
-};
 
-export default useDebounce;
+  return debouncedValue;
+};

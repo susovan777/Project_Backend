@@ -13,7 +13,7 @@ import api from './api.js';
 export const getAllVideos = async (params = {}) => {
   try {
     const response = await api.get('/videos', { params });
-    return response;
+    return response.data.data;
   } catch (error) {
     throw error;
   }
@@ -27,7 +27,7 @@ export const getAllVideos = async (params = {}) => {
 export const getVideoById = async (id) => {
   try {
     const response = await api.get(`/videos/${id}`);
-    return response;
+    return response.data.data;
   } catch (error) {
     throw error;
   }
@@ -41,7 +41,7 @@ export const getVideoById = async (id) => {
 export const postVideo = async (videoData) => {
   try {
     const response = await api.post('/videos', videoData);
-    return response;
+    return response.data.data;
   } catch (error) {
     throw error;
   }
@@ -57,7 +57,7 @@ export const postVideo = async (videoData) => {
 export const updateVotes = async (id, vote, change) => {
   try {
     const response = await api.patch(`/videos/${id}/votes`, { vote, change });
-    return response;
+    return response.data.data;
   } catch (error) {
     throw error;
   }
@@ -87,7 +87,7 @@ export const uploadVideoWithToast = async (videoData, toast) => {
   const loadingToast = toast.loading('Uploading video...');
 
   try {
-    const video = await createVideo(videoData);
+    const video = await postVideo(videoData);
     toast.success('Video uploaded successfully!', { id: loadingToast });
     return video;
   } catch (error) {
