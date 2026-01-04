@@ -51,6 +51,12 @@ const VideoCard = ({ video, onClick }) => {
         {/* Title */}
         <h3 className={styles.title}>{video.title}</h3>
 
+        {/* Badges */}
+        <div className={styles.badges}>
+          <span className={styles.genreBadge}>{video.genre}</span>
+          <span className={styles.ratingBadge}>{video.contentRating}</span>
+        </div>
+
         {/* Stats */}
         <div className={styles.stats}>
           <span className={styles.stat}>
@@ -67,17 +73,8 @@ const VideoCard = ({ video, onClick }) => {
           </span>
         </div>
 
-        {/* Badges */}
-        <div className={styles.badges}>
-          <span className={styles.genreBadge}>{video.genre}</span>
-          <span className={styles.ratingBadge}>{video.contentRating}</span>
-        </div>
-
         {/* Date */}
-        <div className={styles.date}>
-          {/* {formatDate(video.releaseDate)} */}
-          {getVideoAge(video.releaseDate)}
-        </div>
+        <div className={styles.date}>{getVideoAge(video.releaseDate)}</div>
       </div>
     </div>
   );

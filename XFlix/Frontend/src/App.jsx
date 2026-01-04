@@ -1,73 +1,17 @@
-import { useEffect, useState } from 'react';
-import { useDebounce } from './hooks/useDebounce.js';
+import { useState } from 'react';
+import Home from './pages/Home/Home.jsx';
 import toast, { Toaster } from 'react-hot-toast';
 import Footer from './components/Footer/Footer.jsx';
 import Header from './components/Header/Header.jsx';
-import Select from './components/Select/Select.jsx';
-import Container from './components/Container/Container.jsx';
-import VideoGrid from './components/VideoGrid/VideoGrid.jsx';
-import GenreFilter from './components/GenreFilter/GenreFilter.jsx';
-import { CONTENT_RATINGS, SORT_OPTIONS } from './utils/constants.js';
+import VideoDetail from './pages/Video/VideoDetail.jsx';
+import { uploadVideoWithToast } from './services/videoService.js';
 import UploadVideoModal from './components/VideoModal/UploadModal.jsx';
-import { getAllVideos, uploadVideoWithToast } from './services/videoService.js';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
-  // State management
-  const [videos, setVideos] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
-
-  // Filter states
+  const [refreshKey, setRefreshKey] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedGenre, setSelectedGenre] = useState('All');
-  const [selectedRating, setSelectedRating] = useState('Anyone');
-  const [sortBy, setSortBy] = useState('releaseDate');
-
-  // Debounce search query to avoid too many API calls
-  const debouncedSearchQuery = useDebounce(searchQuery, 500);
-
-  /**
-   * Fetch videos from API
-   * Called on component mount and when filters change
-   */
-  const fetchVideos = async () => {
-    setLoading(true);
-
-    try {
-      // Build query parameters
-      const params = {};
-
-      if (debouncedSearchQuery) {
-        params.title = debouncedSearchQuery;
-      }
-
-      if (selectedGenre && selectedGenre !== 'All') {
-        params.genres = selectedGenre;
-      }
-
-      if (selectedRating && selectedRating !== 'Anyone') {
-        params.contentRating = selectedRating;
-      }
-
-      if (sortBy) {
-        params.sortBy = sortBy;
-      }
-
-      const fetchedVideos = await getAllVideos(params);
-      setVideos(fetchedVideos);
-    } catch (error) {
-      console.error('Failed to fetch videos:', error);
-      toast.error(error.message || 'Failed to load videos');
-      setVideos([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Fetch videos when filters change
-  useEffect(() => {
-    fetchVideos();
-  }, [debouncedSearchQuery, selectedGenre, selectedRating, sortBy]);
+  const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
 
   // Handle video upload submission
   const handleUploadSubmit = async (formData) => {
@@ -82,108 +26,75 @@ function App() {
     }
   };
 
-  // Handle video card click
-  // TODO: Navigate to video detail page
-  const handleVideoClick = (video) => {
-    console.log('Video clicked:', video);
-    toast.success(`Opening: ${video.title}`);
-    // TODO: Implement navigation to video detail page
+  const toastOptions = {
+    duration: 3000,
+    style: {
+      background: 'var(--color-bg-secondary)',
+      color: 'var(--color-text-primary)',
+      border: '1px solid var(--color-border)',
+    },
+    success: {
+      iconTheme: {
+        primary: '#10b981',
+        secondary: '#fff',
+      },
+    },
+    error: {
+      iconTheme: {
+        primary: '#ef4444',
+        secondary: '#fff',
+      },
+    },
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Toast Notifications */}
-      <Toaster
-        position="top-right"
-        toastOptions={{
-          duration: 3000,
-          style: {
-            background: 'var(--color-bg-secondary)',
-            color: 'var(--color-text-primary)',
-            border: '1px solid var(--color-border)',
-          },
-          success: {
-            iconTheme: {
-              primary: '#10b981',
-              secondary: '#fff',
-            },
-          },
-          error: {
-            iconTheme: {
-              primary: '#ef4444',
-              secondary: '#fff',
-            },
-          },
-        }}
-      />
+    <Router>
+      <div className="min-h-screen flex flex-col">
+        {/* Toast Notifications */}
+        <Toaster position="top-right" toastOptions={toastOptions} />
 
-      {/* Header */}
-      <Header
-        searchQuery={searchQuery}
-        handleSearchQuery={(e) => setSearchQuery(e.target.value)}
-        onUploadClick={() => setIsUploadModalOpen(true)}
-      />
+        {/* Header */}
+        <Header
+          searchQuery={searchQuery}
+          handleSearchQuery={(e) => setSearchQuery(e.target.value)}
+          onUploadClick={() => setIsUploadModalOpen(true)}
+        />
 
-      {/* Main Content */}
-      <main className="flex-1 py-8">
-        <Container className="my-10">
-          {/* Genre Filter */}
-          <div className="mb-6">
-            <GenreFilter
-              selectedGenre={selectedGenre}
-              onGenreChange={(genre) => setSelectedGenre(genre)}
+        {/* Main Content */}
+        <main className="flex-1 py-8">
+          <Routes>
+            {/* Home Page - Pass search state as prop */}
+            <Route path="/" element={<Home searchQuery={searchQuery} />} />
+
+            {/* Video Detail Page */}
+            <Route path="/videos/:id" element={<VideoDetail />} />
+
+            {/* 404 Not Found */}
+            <Route
+              path="*"
+              element={
+                <div className="flex flex-col items-center justify-center min-h-[400px] text-center">
+                  <h1 className="text-4xl font-bold mb-4">404</h1>
+                  <p className="text-xl text-gray-600 dark:text-gray-400">
+                    Page not found
+                  </p>
+                </div>
+              }
             />
-          </div>
+          </Routes>
+        </main>
 
-          {/* Filters Row */}
-          <div className="flex flex-wrap items-center gap-4 mb-8">
-            {/* Content rating filter */}
-            <div className="w-full sm:w-auto sm:min-w-[200px]">
-              <Select
-                value={selectedRating}
-                onChange={(e) => setSelectedRating(e.target.value)}
-                options={CONTENT_RATINGS}
-                placeholder="Filter by rating"
-              />
-            </div>
+        {/* Footer */}
+        <Footer />
 
-            {/* Sort By */}
-            <div className="w-full sm:w-auto sm:min-w-[200px]">
-              <Select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                options={SORT_OPTIONS}
-                placeholder="Sort by"
-              />
-            </div>
-
-            {/* Results count */}
-            {!loading && (
-              <div>
-                {videos.length} {videos.length === 1 ? 'video' : 'videos'} found
-              </div>
-            )}
-          </div>
-
-          {/* Video Grid */}
-          <VideoGrid
-            videos={videos}
-            loading={loading}
-            onVideoClick={handleVideoClick}
-          />
-        </Container>
-      </main>
-
-      {/* Footer */}
-      <Footer />
-
-      {/* Upload Video Modal */}
-      <UploadVideoModal
-        isOpen={isUploadModalOpen}
-        onSubmit={handleUploadSubmit}
-        onClose={() => setIsUploadModalOpen(false)}
-      />
-    </div>
+        {/* Upload Video Modal */}
+        <UploadVideoModal
+          isOpen={isUploadModalOpen}
+          onSubmit={handleUploadSubmit}
+          onClose={() => setIsUploadModalOpen(false)}
+        />
+      </div>
+    </Router>
   );
 }
 

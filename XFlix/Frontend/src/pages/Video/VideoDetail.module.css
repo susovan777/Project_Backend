@@ -1,0 +1,272 @@
+.container {
+  min-height: calc(100vh - 200px);
+  max-width: 900px;
+  margin: auto;
+  padding: 2rem 0;
+}
+
+.backButton {
+  margin-bottom: 1.5rem;
+}
+
+.player {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: #000;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  margin-bottom: 2rem;
+}
+
+.iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.info {
+  background-color: white;
+  border-radius: 0.75rem;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+:global(html.dark) .info {
+  background-color: #1f1f1f;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 1rem 0;
+  line-height: 1.3;
+}
+
+:global(html.dark) .title {
+  color: white;
+}
+
+.stats {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+:global(html.dark) .stats {
+  color: #9ca3af;
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.dot {
+  color: #d1d5db;
+}
+
+.badges {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.genreBadge {
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+:global(html.dark) .genreBadge {
+  background-color: #1e3a8a;
+  color: #bfdbfe;
+}
+
+.ratingBadge {
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+:global(html.dark) .ratingBadge {
+  background-color: #78350f;
+  color: #fde68a;
+}
+
+.voteSection {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 1.5rem;
+}
+
+:global(html.dark) .voteSection {
+  border-top-color: #374151;
+}
+
+.voteButtons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.voteButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  border: 1px solid #d1d5db;
+  background-color: white;
+  color: #374151;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+:global(html.dark) .voteButton {
+  border-color: #4b5563;
+  background-color: #1f1f1f;
+  color: #d1d5db;
+}
+
+.voteButton:hover:not(:disabled) {
+  background-color: #f9fafb;
+  border-color: #9ca3af;
+  transform: translateY(-2px);
+}
+
+:global(html.dark) .voteButton:hover:not(:disabled) {
+  background-color: #374151;
+  border-color: #6b7280;
+}
+
+.voteButton:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.voteButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.upvote:hover:not(:disabled) {
+  background-color: #dbeafe;
+  border-color: #3b82f6;
+  color: #1e40af;
+}
+
+:global(html.dark) .upvote:hover:not(:disabled) {
+  background-color: #1e3a8a;
+  border-color: #3b82f6;
+  color: #bfdbfe;
+}
+
+.downvote:hover:not(:disabled) {
+  background-color: #fee2e2;
+  border-color: #ef4444;
+  color: #991b1b;
+}
+
+:global(html.dark) .downvote:hover:not(:disabled) {
+  background-color: #7f1d1d;
+  border-color: #ef4444;
+  color: #fecaca;
+}
+
+.voteHint {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  margin: 0;
+}
+
+:global(html.dark) .voteHint {
+  color: #6b7280;
+}
+
+/* Loading state */
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  gap: 1rem;
+}
+
+.spinner {
+  width: 3rem;
+  height: 3rem;
+  border: 3px solid #e5e7eb;
+  border-top-color: #e50914;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+:global(html.dark) .spinner {
+  border-color: #374151;
+  border-top-color: #e50914;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Error state */
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.error h2 {
+  font-size: 1.5rem;
+  color: #111827;
+  margin: 0;
+}
+
+:global(html.dark) .error h2 {
+  color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .info {
+    padding: 1.5rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .voteButtons {
+    flex-direction: column;
+  }
+
+  .voteButton {
+    width: 100%;
+    justify-content: center;
+  }
+}

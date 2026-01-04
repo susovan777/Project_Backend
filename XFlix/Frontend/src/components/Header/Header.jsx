@@ -10,6 +10,8 @@ import SearchBar from '../SearchBar/SearchBar.jsx';
  * Main navigation bar with logo, search, upload button, and theme toggle
  *
  * @param {function} onUploadClick - Handler for upload button click
+ * @param {string} searchQuery - Current search query
+ * @param {function} handleSearchQuery - Search change handler
  */
 const Header = ({ searchQuery, handleSearchQuery, onUploadClick }) => {
   return (
@@ -22,7 +24,7 @@ const Header = ({ searchQuery, handleSearchQuery, onUploadClick }) => {
             {/* <img src="/xflix-logo.png" alt="XFlix Logo" /> */}
           </div>
 
-          {/* Middle: Search Bar */}
+          {/* Middle: Search Bar - Center on desktop, below on mobile */}
           <div className={styles.searchBox}>
             <SearchBar
               value={searchQuery}
@@ -37,8 +39,9 @@ const Header = ({ searchQuery, handleSearchQuery, onUploadClick }) => {
               <span>
                 <Upload />
               </span>
-              <span>Upload Video</span>
+              <span className={styles.uploadText}>Upload</span>
             </Button>
+
             <ThemeToggle />
           </div>
         </div>
