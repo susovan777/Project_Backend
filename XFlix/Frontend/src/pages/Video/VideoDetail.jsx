@@ -51,8 +51,6 @@ const VideoDetail = () => {
     if (id) fetchVideo();
   }, [id]);
 
-  console.log(video);
-
   // Handle vote button click
   const handleVote = async (voteType, change) => {
     try {

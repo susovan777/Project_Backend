@@ -1,3 +1,4 @@
+import { Moon, Sun } from 'lucide-react';
 import styles from './ThemeToggle.module.css';
 import { useTheme } from '../../hooks/useTheme.js';
 
@@ -16,9 +17,9 @@ const ThemeToggle = () => {
       title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
     >
       {theme === 'light' ? (
-        <span className="">🌙</span>
+        <Moon size={20} />
       ) : (
-        <span className="">☀️</span>
+        <Sun size={20} />
       )}
     </button>
   );

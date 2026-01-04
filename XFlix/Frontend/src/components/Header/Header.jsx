@@ -4,6 +4,7 @@ import Button from '../Button/Button.jsx';
 import Container from '../Container/Container.jsx';
 import ThemeToggle from '../Theme/ThemeToggle.jsx';
 import SearchBar from '../SearchBar/SearchBar.jsx';
+import MobileMenu from '../MobileMenu/MobileMenu.jsx';
 
 /**
  * Header Component
@@ -19,7 +20,10 @@ const Header = ({ searchQuery, handleSearchQuery, onUploadClick }) => {
       <Container>
         <div className={styles.content}>
           {/* Left: Logo */}
-          <div className={styles.logo}>
+          <div
+            className={styles.logo}
+            onClick={() => (window.location.href = '/')} // Go to homepage
+          >
             <h1 className={styles.logoText}>XFlix</h1>
             {/* <img src="/xflix-logo.png" alt="XFlix Logo" /> */}
           </div>
@@ -33,7 +37,7 @@ const Header = ({ searchQuery, handleSearchQuery, onUploadClick }) => {
             />
           </div>
 
-          {/* Right: Upload + Theme toggle */}
+          {/* Right: Desktop Actions - Hidden on mobile */}
           <div className={styles.actions}>
             <Button variant="primary" size="md" onClick={onUploadClick}>
               <span>
@@ -43,6 +47,11 @@ const Header = ({ searchQuery, handleSearchQuery, onUploadClick }) => {
             </Button>
 
             <ThemeToggle />
+          </div>
+
+          {/* Mobile Menu - Visible on mobile only */}
+          <div className={styles.mobileMenu}>
+            <MobileMenu onUploadClick={onUploadClick} />
           </div>
         </div>
       </Container>

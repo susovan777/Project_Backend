@@ -19,7 +19,7 @@ function App() {
       await uploadVideoWithToast(formData, toast);
 
       // Refresh video list after successful upload
-      fetchVideos();
+      setRefreshKey((prev) => prev + 1);
     } catch (error) {
       // Error already handled by uploadVideoWithToast
       throw error;
@@ -64,7 +64,10 @@ function App() {
         <main className="flex-1 py-8">
           <Routes>
             {/* Home Page - Pass search state as prop */}
-            <Route path="/" element={<Home searchQuery={searchQuery} />} />
+            <Route
+              path="/"
+              element={<Home key={refreshKey} searchQuery={searchQuery} />}
+            />
 
             {/* Video Detail Page */}
             <Route path="/videos/:id" element={<VideoDetail />} />

@@ -1,10 +1,11 @@
+import toast from 'react-hot-toast';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDebounce } from '../../hooks/useDebounce.js';
 import Select from '../../components/Select/Select.jsx';
+import { getAllVideos } from '../../services/videoService.js';
 import VideoGrid from '../../components/VideoGrid/VideoGrid.jsx';
 import Container from '../../components/Container/Container.jsx';
-import { getAllVideos } from '../../services/videoService.js';
 import GenreFilter from '../../components/GenreFilter/GenreFilter.jsx';
 import { CONTENT_RATINGS, SORT_OPTIONS } from '../../utils/constants.js';
 
