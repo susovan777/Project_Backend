@@ -28,11 +28,12 @@ export const validateVideoLink = (value, helpers) => {
   // \/embed\/            → Must have "/embed/"
   // [a-zA-Z0-9_-]+       → Video ID (letters, numbers, underscore, hyphen)
   // $                    → Must end here (no extra characters)
-  const regex = /^youtube\.com\/embed\/[a-zA-Z0-9_-]+$/;
+  const regex =
+    /^(https:\/\/www\.youtube\.com|youtube\.com)\/embed\/[a-zA-Z0-9_-]+$/;
 
   if (!regex.test(value)) {
     return helpers.message(
-      '"videoLink" must be in the format: "youtube.com/embed/<video-id>"'
+      '"videoLink" must be in the format: "https://youtu.be/<video-id>" or "https://www.youtube.com/embed/<video-id>"'
     );
   }
 

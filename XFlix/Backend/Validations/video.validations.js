@@ -103,7 +103,7 @@ const postVideo = {
 
     // Preview image must be valid URI
     // .uri() validates: http://, https://, ftp://, etc.
-    previewImage: Joi.string().uri().required(),
+    // previewImage: Joi.string().uri().required(),
   }),
 };
 
