@@ -411,7 +411,7 @@ This project is licensed under the MIT License.
 
 ## 👨‍💻 Author
 
-Created as part of MERN Stack Developer assignment for SkaiLama.
+Susovan Sahoo
 
 ## 🙏 Acknowledgments
 
